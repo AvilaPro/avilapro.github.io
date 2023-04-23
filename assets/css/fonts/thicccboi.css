@@ -1,0 +1,229 @@
+@import "../../fonts/thicccboi/thicccboi.css";
+
+* {
+  word-spacing: normal !important;
+}
+
+body {
+  font-family: "THICCCBOI", sans-serif;
+  font-size: 0.85rem;
+}
+
+.nav-link,
+.dropdown-item,
+.btn {
+  letter-spacing: normal;
+}
+
+.btn,
+.navbar .btn-sm,
+.nav-link,
+.lg-sub-html p {
+  font-size: 0.85rem;
+}
+
+.dropdown-menu {
+  font-size: 0.8rem;
+}
+
+.share-dropdown .dropdown-menu .dropdown-item,
+.btn-sm,
+.btn-group-sm>.btn,
+.post-meta {
+  font-size: 0.75rem;
+}
+
+.meta,
+.post-category,
+.filter,
+.filter ul li a {
+  font-size: 0.7rem;
+}
+
+.post-header .post-meta {
+  font-size: 0.8rem;
+}
+
+.nav-tabs .nav-link,
+.accordion-wrapper .card-header button,
+.collapse-link {
+  font-size: 0.9rem;
+}
+
+blockquote {
+  font-size: 0.9rem;
+}
+
+.blockquote-footer {
+  font-size: 0.65rem;
+}
+
+.blockquote-details p {
+  font-size: 0.85rem;
+}
+
+.counter-wrapper p {
+  font-size: 0.85rem;
+}
+
+.counter-wrapper .counter {
+  font-size: calc(1.33rem + 0.96vw);
+}
+
+@media (min-width: 1200px) {
+  .counter-wrapper .counter {
+    font-size: 2.05rem;
+  }
+}
+
+.counter-wrapper .counter.counter-lg {
+  font-size: calc(1.35rem + 1.2vw);
+}
+
+@media (min-width: 1200px) {
+  .counter-wrapper .counter.counter-lg {
+    font-size: 2.25rem;
+  }
+}
+
+.icon-list.bullet-bg i {
+  top: 0.25rem;
+}
+
+.accordion-wrapper .card-header button:before {
+  margin-top: -0.15rem;
+}
+
+.form-floating>label {
+  padding-top: 0.65rem;
+}
+
+.h1,
+h1 {
+  font-size: calc(1.275rem + 0.3vw);
+}
+
+@media (min-width: 1200px) {
+
+  .h1,
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.h2,
+h2 {
+  font-size: calc(1.26rem + 0.12vw);
+}
+
+@media (min-width: 1200px) {
+
+  .h2,
+  h2 {
+    font-size: 1.35rem;
+  }
+}
+
+.h3,
+h3 {
+  font-size: 1.15rem;
+}
+
+.h4,
+h4 {
+  font-size: 1rem;
+}
+
+.h5,
+h5 {
+  font-size: 0.95rem;
+}
+
+.h6,
+h6 {
+  font-size: 0.9rem;
+}
+
+.fs-sm {
+  font-size: 0.75rem !important;
+}
+
+.fs-lg {
+  font-size: 1.05rem !important;
+}
+
+.lead {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.lead.fs-lg {
+  font-size: 1.1rem !important;
+  line-height: 1.55;
+}
+
+.display-1 {
+  font-size: calc(1.375rem + 1.5vw);
+  line-height: 1.15;
+}
+
+@media (min-width: 1200px) {
+  .display-1 {
+    font-size: 2.5rem;
+  }
+}
+
+.display-2 {
+  font-size: calc(1.355rem + 1.26vw);
+  line-height: 1.2;
+}
+
+@media (min-width: 1200px) {
+  .display-2 {
+    font-size: 2.3rem;
+  }
+}
+
+.display-3 {
+  font-size: calc(1.335rem + 1.02vw);
+  line-height: 1.2;
+}
+
+@media (min-width: 1200px) {
+  .display-3 {
+    font-size: 2.1rem;
+  }
+}
+
+.display-4 {
+  font-size: calc(1.315rem + 0.78vw);
+  line-height: 1.25;
+}
+
+@media (min-width: 1200px) {
+  .display-4 {
+    font-size: 1.9rem;
+  }
+}
+
+.display-5 {
+  font-size: calc(1.295rem + 0.54vw);
+  line-height: 1.25;
+}
+
+@media (min-width: 1200px) {
+  .display-5 {
+    font-size: 1.7rem;
+  }
+}
+
+.display-6 {
+  font-size: calc(1.275rem + 0.3vw);
+  line-height: 1.3;
+}
+
+@media (min-width: 1200px) {
+  .display-6 {
+    font-size: 1.5rem;
+  }
+}
