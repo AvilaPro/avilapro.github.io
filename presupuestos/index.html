@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Presupuestos - AvilaPro">
+  <meta name="author" content="avilapro">
+  <title>Presupuestos - AvilaPro</title>
+  <link rel="shortcut icon" href="https://i.ibb.co/njXkmWf/favicon-logo-Avilapro-Amarillo.png">
+  <link rel="stylesheet" href="../assets/css/plugins.css">
+  <link rel="stylesheet" href="../assets/css/myStyles.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/colors/navy.css">
+  <link rel="preload" href="../assets/css/fonts/thicccboi.css" as="style" onload="this.rel='stylesheet'">
+</head>
+
+<body>
+  <div class="content-wrapper">
+    <header class="wrapper bg-soft-primary">
+      <nav class="navbar navbar-expand-lg center-nav transparent navbar-light">
+        <div class="container flex-lg-row flex-nowrap align-items-center">
+          <div class="navbar-brand w-100">
+            <a href="../index.html">
+              <img src="https://i.ibb.co/n8hzwsQ/logo-Avilapro-Azul-Con-Nombre-Letras-Oscuras-Sin-Fondo.png" srcset="https://i.ibb.co/n8hzwsQ/logo-Avilapro-Azul-Con-Nombre-Letras-Oscuras-Sin-Fondo.png 2x" alt="logo AvilaPro" style="max-height: 60px;" />
+            </a>
+          </div>
+          <div class="navbar-collapse offcanvas-nav">
+            <div class="offcanvas-header d-lg-none d-xl-none">
+              <a href="../index.html"><img src="https://i.ibb.co/ThSpd5j/logo-Avila268x52-light.png" srcset="https://i.ibb.co/HnKXRxx/logo-Avila134x26-light.png 2x" alt="" /></a>
+              <button type="button" class="btn-close btn-close-white offcanvas-close offcanvas-nav-close" aria-label="Close"></button>
+            </div>
+            <ul class="navbar-nav">
+              <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+              <li class="nav-item"><a class="nav-link" href="../proyectos.html">Proyectos</a></li>
+              <li class="nav-item"><a class="nav-link" href="../presupuestos/">Presupuestos</a></li>
+              <li class="nav-item"><a class="nav-link" href="../curriculo.html">Curriculo Web</a></li>
+            </ul>
+          </div>
+          <div class="navbar-other w-100 d-flex ms-auto">
+            <ul class="navbar-nav flex-row align-items-center ms-auto" data-sm-skip="true">
+              <li class="nav-item d-md-block">
+                <a href="https://wa.me/584245142978?text=Hola, estoy interesado en desarrollar una aplicación con usted." class="btn btn-green rounded-pill" target="_blank">Contáctame!</a>
+              </li>
+              <li class="nav-item d-lg-none">
+                <div class="navbar-hamburger"><button class="hamburger animate plain" data-toggle="offcanvas-nav"><span></span></button></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <section class="wrapper bg-gradient-primary">
+      <div class="container pt-10 pt-md-14 pb-14 pb-md-17">
+        <div class="row text-center">
+          <div class="col-lg-6 mx-auto">
+            <h2 class="fs-15 ls-xl text-uppercase text-muted">Clientes</h2>
+            <h1 class="display-3 mt-3 mb-5">Consulta tu Presupuesto</h1>
+            <p class="lead fs-lg mb-8">Ingresa la clave que te fue proporcionada para ver tu presupuesto.</p>
+            <div class="card shadow-lg mx-auto" style="max-width: 450px;">
+              <div class="card-body p-7">
+                <div class="mb-4">
+                  <label for="clave" class="form-label fw-bold">Clave de acceso</label>
+                  <input type="text" class="form-control" id="clave" placeholder="Ingresa tu clave aquí" autocomplete="off">
+                </div>
+                <div id="error-msg" class="text-danger mb-3" style="display:none;">Clave incorrecta. Verifica e intenta de nuevo.</div>
+                <button class="btn btn-primary rounded-pill w-100" onclick="accederPresupuesto()">Ver Presupuesto</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrapper bg-light">
+      <div class="container pt-14 pb-14">
+        <div class="row text-center">
+          <div class="col-lg-6 mx-auto">
+            <h2 class="fs-15 ls-xl text-uppercase text-muted">¿No tienes clave?</h2>
+            <h2 class="display-3 mt-3 mb-5">Solicita tu presupuesto</h2>
+            <p class="lead fs-lg mb-8">Completa el formulario y te contactaré por WhatsApp.</p>
+            <div class="card shadow-lg mx-auto" style="max-width: 450px;">
+              <div class="card-body p-7">
+                <div class="mb-4">
+                  <label for="nombre" class="form-label fw-bold">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" placeholder="Tu nombre">
+                </div>
+                <div class="mb-4">
+                  <label for="proyecto" class="form-label fw-bold">¿Qué necesitas?</label>
+                  <textarea class="form-control" id="proyecto" rows="3" placeholder="Describe brevemente tu proyecto"></textarea>
+                </div>
+                <button class="btn btn-green rounded-pill w-100" onclick="enviarWhatsApp()"><i class="uil uil-whatsapp"></i> Enviar por WhatsApp</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="progress-wrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+    </svg>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+  <script src="../assets/js/plugins.js"></script>
+  <script src="../assets/js/theme.js"></script>
+  <script>
+    // Mapa de claves -> archivos de presupuesto
+    // Agrega aquí las claves de tus clientes: 'clave': 'archivo.html'
+    const presupuestos = {
+      'demo2025': 'demo.html',
+      'vetprin': 'VETPRIN_APP_Plan_Desarrollo.html'
+    };
+
+    function accederPresupuesto() {
+      const clave = document.getElementById('clave').value.trim().toLowerCase();
+      const errorMsg = document.getElementById('error-msg');
+      if (presupuestos[clave]) {
+        errorMsg.style.display = 'none';
+        window.location.href = presupuestos[clave];
+      } else {
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    document.getElementById('clave').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') accederPresupuesto();
+    });
+
+    function enviarWhatsApp() {
+      const nombre = document.getElementById('nombre').value.trim();
+      const proyecto = document.getElementById('proyecto').value.trim();
+      const mensaje = `Hola, soy ${nombre}. Quisiera solicitar un presupuesto para: ${proyecto}`;
+      window.open(`https://wa.me/584222845277?text=${encodeURIComponent(mensaje)}`, '_blank');
+    }
+  </script>
+</body>
+
+</html>

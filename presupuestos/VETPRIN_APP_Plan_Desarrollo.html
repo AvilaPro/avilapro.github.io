@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Desarrollo VETPRIN APP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html{
+            display: flex;
+            justify-content: center;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 30px;
+            background: #f4f6f9;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 4px solid #2563eb;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #1e40af;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header .subtitle {
+            color: #64748b;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 5px solid #2563eb;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .summary-item {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .summary-item strong {
+            color: #1e40af;
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .summary-item span {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        h2 {
+            color: #1e40af;
+            font-size: 22px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        h3 {
+            color: #334155;
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        h4 {
+            color: #475569;
+            font-size: 15px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            background: white;
+        }
+
+        tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        tr:hover td {
+            background: #eff6ff;
+        }
+
+        .week-table th {
+            background: #059669;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+
+        .checklist {
+            list-style: none;
+            columns: 2;
+            column-gap: 30px;
+        }
+
+        .checklist li {
+            padding: 6px 0;
+            font-size: 13px;
+            break-inside: avoid;
+        }
+
+        .checklist li:before {
+            content: "☑ ";
+            color: #059669;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .architecture-box {
+            background: #f1f5f9;
+            border: 2px solid #cbd5e1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .architecture-item {
+            background: white;
+            border-left: 4px solid #2563eb;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .architecture-item strong {
+            color: #1e40af;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .site-nav {
+            background: #f0f4ff;
+            padding: 12px 0;
+            margin-bottom: 30px;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .nav-logo {
+            max-height: 45px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #334155;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .btn-contact {
+            background: #22c55e;
+            color: white !important;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px !important;
+        }
+
+        .btn-contact:hover {
+            background: #16a34a;
+        }
+
+        .payment-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .payment-item {
+            background: white;
+            padding: 14px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .payment-item strong {
+            color: #92400e;
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .payment-item span {
+            font-size: 20px;
+            font-weight: 700;
+            color: #78350f;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+            font-size: 13px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-blue {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-green {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-orange {
+            background: #ffedd5;
+            color: #9a3412;
+        }
+
+        @media print {
+            body {
+                max-width: 100%;
+                padding: 15mm;
+                background: #fff;
+            }
+            .site-nav {
+                display: none;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="site-nav no-print">
+    <div class="nav-inner">
+        <a href="../index.html">
+            <img src="https://i.ibb.co/n8hzwsQ/logo-Avilapro-Azul-Con-Nombre-Letras-Oscuras-Sin-Fondo.png" alt="logo AvilaPro" class="nav-logo" />
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Inicio</a>
+            <a href="../proyectos.html">Proyectos</a>
+            <a href="../presupuestos/">Presupuestos</a>
+            <a href="https://wa.me/584245142978?text=Hola, estoy interesado en desarrollar una aplicación con usted." target="_blank" class="btn-contact">Contáctame!</a>
+        </div>
+    </div>
+</nav>
+
+<div class="header">
+    <h1>Plan de Desarrollo VETPRIN APP</h1>
+    <div class="subtitle">Ionic-Angular • NestJS • PostgreSQL • S3 • 100% Alcance</div>
+</div>
+
+<div class="summary-box">
+    <h3 style="margin-top: 0; color: #1e40af;">Resumen Ejecutivo</h3>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <strong>Duración Total</strong>
+            <span>7.5 Semanas</span>
+        </div>
+        <div class="summary-item">
+            <strong>Horas Totales</strong>
+            <span>300 Horas</span>
+        </div>
+        <div class="summary-item">
+            <strong>Tarifa</strong>
+            <span>10€/hora</span>
+        </div>
+        <div class="summary-item">
+            <strong>Costo Total</strong>
+            <span style="color: #059669;">3,000€</span>
+        </div>
+    </div>
+    <p style="margin-top: 15px; margin-bottom: 0; font-size: 12px;">
+        <strong>Alcance:</strong> 100% del documento de requisitos original  • 25 tablas • 22 pantallas • 9 secciones médicas
+    </p>
+</div>
+
+<h2>1. Estrategia de Aceleración</h2>
+
+<div class="architecture-box">
+    <div class="architecture-item">
+        <strong>1. Ionic Starter Templates</strong>
+        UI components, form builders dinámicos, calendario integrado.
+    </div>
+    <div class="architecture-item">
+        <strong>2. Generadores de Código</strong>
+        NestJS CRUD generator, TypeORM entity generator, Angular schematics.
+    </div>
+    <div class="architecture-item">
+        <strong>3. Trabajo Paralelo</strong>
+        Backend (días 1-15) + Frontend (días 8-30 solapado) + Integración (días 25-37)
+    </div>
+    <div class="architecture-item">
+        <strong>4. Feature Flags</strong>
+        Desarrollo por capas, versión funcional día 20 para testing temprano
+    </div>
+</div>
+
+<h2>2. Distribución de Horas por Módulo</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Módulo</th>
+            <th>Horas</th>
+            <th>%</th>
+            <th>Estrategia de Aceleración</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Setup + Infraestructura</td>
+            <td>15h</td>
+            <td>5%</td>
+            <td>PostgreSQL, templates ready</td>
+        </tr>
+        <tr>
+            <td>Autenticación</td>
+            <td>20h</td>
+            <td>7%</td>
+            <td>JWT + Passport (NestJS), bcrypt, refresh tokens</td>
+        </tr>
+        <tr>
+            <td>Veterinarios (registro, verificación, horarios)</td>
+            <td>35h</td>
+            <td>12%</td>
+            <td>Form builders dinámicos, validación cédula librería</td>
+        </tr>
+        <tr>
+            <td>Gestión de pacientes</td>
+            <td>30h</td>
+            <td>10%</td>
+            <td>CRUD generator, componentes reutilizables</td>
+        </tr>
+        <tr>
+            <td><strong>Historias médicas completas</strong></td>
+            <td><strong>70h</strong></td>
+            <td><strong>23%</strong></td>
+            <td><strong>Mayor esfuerzo: 9 secciones, permisos granulares, PDF</strong></td>
+        </tr>
+        <tr>
+            <td>Compartir historias + aprobaciones</td>
+            <td>25h</td>
+            <td>8%</td>
+            <td>Workflow simple, notificaciones automáticas</td>
+        </tr>
+        <tr>
+            <td>Agenda + Recordatorios + Notificaciones</td>
+            <td>40h</td>
+            <td>13%</td>
+            <td>Ionic Calendar, NestJS scheduler, FCM</td>
+        </tr>
+        <tr>
+            <td>Módulo Tutor (búsqueda geolocalizada)</td>
+            <td>35h</td>
+            <td>12%</td>
+            <td>PostGIS, filtros combinados, distancia calculada</td>
+        </tr>
+        <tr>
+            <td>Testing + QA</td>
+            <td>20h</td>
+            <td>7%</td>
+            <td>Tests críticos solo (auth, permisos, pagos)</td>
+        </tr>
+        <tr>
+            <td>Deploy + Documentación</td>
+            <td>10h</td>
+            <td>3%</td>
+            <td>CI/CD básico, README técnico</td>
+        </tr>
+        <tr style="background: #eff6ff; font-weight: bold;">
+            <td>TOTAL</td>
+            <td>300h</td>
+            <td>100%</td>
+            <td>3,000€</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>3. Cronograma Detallado (7.5 Semanas)</h2>
+
+<h3>Semana 1: Fundamentos Ultra-Rápidos (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Setup PostgreSQL, auth JWT/Passport, guards NestJS</td>
+            <td>8h</td>
+            <td>DB lista, auth funcional</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Generar entidades TypeORM, migraciones, seed data</td>
+            <td>8h</td>
+            <td>25 tablas creadas</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>NestJS base: módulos, guards JWT, interceptores</td>
+            <td>8h</td>
+            <td>API base estructurada</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Ionic proyecto: routing, guards, servicios base</td>
+            <td>8h</td>
+            <td>App móvil scaffold lista</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Componentes shared: location-picker, image-upload, dynamic-form</td>
+            <td>8h</td>
+            <td>UI kit base</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Semana 2: Veterinarios + Pacientes (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>6</td>
+            <td>Backend: CRUD veterinarios, verificación manual, validación colegiatura</td>
+            <td>8h</td>
+            <td>API vets completa</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Frontend: Registro veterinario (20+ campos), selector colegio cascada</td>
+            <td>8h</td>
+            <td>Registro vet funcional</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Backend: Horarios (7 días, múltiples franjas), servicios, especies</td>
+            <td>8h</td>
+            <td>Configuración vet API</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Frontend: Configuración horarios UI, toggle 24h, selección múltiple</td>
+            <td>8h</td>
+            <td>Perfil vet configurable</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>Backend: CRUD tutores/mascotas, búsqueda por cédula, filtros avanzados</td>
+            <td>8h</td>
+            <td>Gestión pacientes API</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h3>Semana 3: Historias Médicas - Fase 1 (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>11</td>
+            <td>Backend: Historias médicas, permisos (solo creador edita), snapshot datos</td>
+            <td>8h</td>
+            <td>Estructura permisos compleja</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>Frontend: Lista historias, botón nueva, selección secciones dinámica</td>
+            <td>8h</td>
+            <td>UI historias base</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>Secciones 1-3: Anamnesis, Vacunación, Desparasitación</td>
+            <td>8h</td>
+            <td>Formularios específicos</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>Secciones 4-6: Constantes vitales, Examen físico, Exámenes complementarios</td>
+            <td>8h</td>
+            <td>UI médica completa</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>Backend: Upload imágenes (exámenes), procesamiento, asociación</td>
+            <td>8h</td>
+            <td>Gestión multimedia</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Semana 4: Historias Médicas - Fase 2 + PDF (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>16</td>
+            <td>Secciones 7-9: Diagnóstico, Tratamiento, Resumen</td>
+            <td>8h</td>
+            <td>Historia médica completa</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td>Backend: PDF generation (Puppeteer), layout médico profesional</td>
+            <td>8h</td>
+            <td>Export PDF funcional</td>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td>Frontend: Vista previa PDF, selección secciones a imprimir</td>
+            <td>8h</td>
+            <td>UI impresión completa</td>
+        </tr>
+        <tr>
+            <td>19</td>
+            <td>Backend: Compartir historias, flujo aprobación, vinculación permanente</td>
+            <td>8h</td>
+            <td>Workflow compartir listo</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td>Frontend: Modal compartir, notificaciones solicitud, gestión permisos</td>
+            <td>8h</td>
+            <td>UX compartir completa</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Semana 5: Agenda + Recordatorios (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>21</td>
+            <td>Backend: Citas (CRUD), validación horarios, conflictos, timezone</td>
+            <td>8h</td>
+            <td>API agenda robusta</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td>Frontend: Calendario mensual/semanal, drag-drop, colores</td>
+            <td>8h</td>
+            <td>UI calendario profesional</td>
+        </tr>
+        <tr>
+            <td>23</td>
+            <td>Backend: Recordatorios (3 tipos), lógica fechas, integración agenda</td>
+            <td>8h</td>
+            <td>Sistema recordatorios</td>
+        </tr>
+        <tr>
+            <td>24</td>
+            <td>Notificaciones: Push (FCM), email (SendGrid), scheduling</td>
+            <td>8h</td>
+            <td>Notificaciones automáticas</td>
+        </tr>
+        <tr>
+            <td>25</td>
+            <td>Frontend: Vista recordatorios, badges, configuración</td>
+            <td>8h</td>
+            <td>UX notificaciones completa</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Semana 6: Módulo Tutor + Búsqueda (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>26</td>
+            <td>Backend: Búsqueda vets (PostGIS, distancia), filtros avanzados</td>
+            <td>8h</td>
+            <td>API búsqueda avanzada</td>
+        </tr>
+        <tr>
+            <td>27</td>
+            <td>Frontend: Mapa interactivo, lista resultados, filtros laterales</td>
+            <td>8h</td>
+            <td>Buscador geolocalizado</td>
+        </tr>
+        <tr>
+            <td>28</td>
+            <td>Backend: Perfil vet público, contacto solo teléfono</td>
+            <td>8h</td>
+            <td>API perfil público</td>
+        </tr>
+        <tr>
+            <td>29</td>
+            <td>Frontend: Perfil vet detalle, mis mascotas, historias read-only</td>
+            <td>8h</td>
+            <td>App tutor funcional</td>
+        </tr>
+        <tr>
+            <td>30</td>
+            <td>Backend: Integración tutor-mascotas-historias, permisos solo lectura</td>
+            <td>8h</td>
+            <td>Seguridad tutor completa</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h3>Semana 7: Integración + Testing (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>31</td>
+            <td>Testing flujo veterinario: Registro → Verificación → Historia → PDF → Compartir</td>
+            <td>8h</td>
+            <td>Flujo vet validado</td>
+        </tr>
+        <tr>
+            <td>32</td>
+            <td>Testing flujo tutor: Búsqueda → Ver vet → Mascota → Historia → Notificación</td>
+            <td>8h</td>
+            <td>Flujo tutor validado</td>
+        </tr>
+        <tr>
+            <td>33</td>
+            <td>Testing permisos: Solo creador edita, otros ven, tutor no edita, admin verifica</td>
+            <td>8h</td>
+            <td>Seguridad validada</td>
+        </tr>
+        <tr>
+            <td>34</td>
+            <td>Testing agenda: Crear cita → Recordatorio → Push → Reprogramar</td>
+            <td>8h</td>
+            <td>Agenda validada</td>
+        </tr>
+        <tr>
+            <td>35</td>
+            <td>Optimización: Lazy loading, caché, índices DB, queries lentas</td>
+            <td>8h</td>
+            <td>Performance ajustada</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Semana 7.5: Deploy + Cierre (20h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>36</td>
+            <td>Deploy: Backend (Railway), DB (Railway PostgreSQL), Frontend (Vercel), SSL</td>
+            <td>8h</td>
+            <td>Producción live</td>
+        </tr>
+        <tr>
+            <td>37</td>
+            <td>Documentación: README técnico, guía despliegue, manual usuario</td>
+            <td>8h</td>
+            <td>Documentación entregable</td>
+        </tr>
+        <tr>
+            <td>37.5</td>
+            <td>Buffer: Bugs críticos última hora, ajustes finales</td>
+            <td>4h</td>
+            <td>Entrega final</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>4. Esquema de Base de Datos (25 Tablas)</h2>
+
+<h3>Tablas Principales</h3>
+<ol>
+    <li><strong>states</strong> - Estados de Venezuela (23 registros)</li>
+    <li><strong>cities</strong> - Ciudades por estado</li>
+    <li><strong>municipalities</strong> - Municipios por ciudad</li>
+    <li><strong>colleges</strong> - Colegios veterinarios</li>
+    <li><strong>users</strong> - Usuarios base (veterinarios y tutores)</li>
+    <li><strong>veterinarians</strong> - Extensión vets (verificación, ubicación, horarios 24h)</li>
+    <li><strong>vet_schedules</strong> - Horarios de atención (7 días, múltiples franjas)</li>
+    <li><strong>services</strong> - Servicios ofertados (consulta, especialidades)</li>
+    <li><strong>species</strong> - Especies atendidas (13 tipos)</li>
+    <li><strong>vet_services</strong> - Relación N:M veterinario-servicios</li>
+    <li><strong>vet_species</strong> - Relación N:M veterinario-especies</li>
+    <li><strong>owners</strong> - Extensión tutores (ubicación completa)</li>
+    <li><strong>pets</strong> - Mascotas (13 campos incluyendo foto)</li>
+    <li><strong>medical_histories</strong> - Historias médicas (snapshot datos, permisos)</li>
+    <li><strong>history_sections</strong> - Secciones de historia (9 tipos, contenido JSONB)</li>
+    <li><strong>shared_histories</strong> - Compartir historias (flujo aprobación)</li>
+    <li><strong>appointments</strong> - Citas/Consultas agendadas</li>
+    <li><strong>reminders</strong> - Recordatorios (3 tipos: consulta, vacunación, tratamiento)</li>
+    <li><strong>notifications</strong> - Notificaciones push/email tracking</li>
+</ol>
+
+<!-- <h3>Script SQL Esencial</h3> -->
+<!-- <div class="code-block">
+-- Estados, Ciudades, Municipios
+CREATE TABLE states (id SERIAL PRIMARY KEY, name VARCHAR(100), code VARCHAR(10));
+CREATE TABLE cities (id SERIAL PRIMARY KEY, state_id INTEGER REFERENCES states(id), name VARCHAR(100));
+CREATE TABLE municipalities (id SERIAL PRIMARY KEY, city_id INTEGER REFERENCES cities(id), name VARCHAR(100));
+
+-- Colegios veterinarios
+CREATE TABLE colleges (id SERIAL PRIMARY KEY, name VARCHAR(100), code VARCHAR(10));
+
+-- Usuarios base con rol
+CREATE TYPE user_role AS ENUM ('veterinarian', 'owner');
+CREATE TYPE verification_status AS ENUM ('pending', 'approved', 'rejected');
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    id_card VARCHAR(20) UNIQUE NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    role user_role NOT NULL,
+    profile_image VARCHAR(500),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Veterinarios (extensión con verificación manual)
+CREATE TABLE veterinarians (
+    user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+    college_id INTEGER REFERENCES colleges(id),
+    license_number VARCHAR(50) NOT NULL,
+    is_verified verification_status DEFAULT 'pending',
+    is_24h BOOLEAN DEFAULT FALSE,
+    state_id INTEGER REFERENCES states(id),
+    city_id INTEGER REFERENCES cities(id),
+    municipality_id INTEGER REFERENCES municipalities(id),
+    address TEXT,
+    latitude DECIMAL(10, 8),
+    longitude DECIMAL(11, 8)
+);
+
+-- Horarios configurables
+CREATE TABLE vet_schedules (
+    id SERIAL PRIMARY KEY,
+    vet_id INTEGER REFERENCES veterinarians(user_id) ON DELETE CASCADE,
+    day_of_week INTEGER CHECK (day_of_week BETWEEN 0 AND 6),
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE
+);
+
+-- Mascotas
+CREATE TABLE pets (
+    id SERIAL PRIMARY KEY,
+    owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    name VARCHAR(100) NOT NULL,
+    species_id INTEGER REFERENCES species(id),
+    breed VARCHAR(100),
+    sex sex_type,
+    color VARCHAR(50),
+    birth_month INTEGER,
+    birth_year INTEGER,
+    weight DECIMAL(5,2),
+    food_type VARCHAR(100),
+    reproductive_status reproductive_status,
+    housing_type housing_type,
+    photo_url VARCHAR(500)
+);
+
+-- Historias médicas con inmutabilidad parcial
+CREATE TABLE medical_histories (
+    id SERIAL PRIMARY KEY,
+    pet_id INTEGER REFERENCES pets(id) ON DELETE CASCADE,
+    vet_id INTEGER REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    history_date DATE DEFAULT CURRENT_DATE,
+    is_editable BOOLEAN DEFAULT TRUE,
+    owner_name_at_creation VARCHAR(200),
+    owner_phone_at_creation VARCHAR(20),
+    owner_address_at_creation TEXT,
+    pet_data_snapshot JSONB
+);
+
+-- Secciones flexibles (9 tipos)
+CREATE TYPE section_type AS ('anamnesis', 'vaccination', 'deworming', 
+    'vital_signs', 'physical_exam', 'lab_tests', 'imaging', 'diagnosis', 'treatment');
+
+CREATE TABLE history_sections (
+    id SERIAL PRIMARY KEY,
+    history_id INTEGER REFERENCES medical_histories(id) ON DELETE CASCADE,
+    section_type section_type NOT NULL,
+    content JSONB NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Compartir con aprobación
+CREATE TYPE share_status AS ENUM ('pending', 'accepted', 'rejected');
+CREATE TABLE shared_histories (
+    id SERIAL PRIMARY KEY,
+    history_id INTEGER REFERENCES medical_histories(id),
+    shared_by_user_id INTEGER REFERENCES users(id),
+    target_vet_id INTEGER REFERENCES users(id),
+    status share_status DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+</div> -->
+
+<div class="page-break"></div>
+
+<h2>5. Vistas/Pantallas del Sistema (22 totales)</h2>
+
+<h3>Módulo Veterinario (14 pantallas)</h3>
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Pantalla</th>
+            <th>Funcionalidad Clave</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>1</td><td>Login</td><td>Cédula + contraseña, selección rol</td></tr>
+        <tr><td>2</td><td>Registro Vet - Paso 1</td><td>Datos personales, colegio, verificación</td></tr>
+        <tr><td>3</td><td>Registro Vet - Paso 2</td><td>Ubicación (estado→ciudad→municipio), servicios</td></tr>
+        <tr><td>4</td><td>Registro Vet - Paso 3</td><td>Horarios semanales, toggle 24h</td></tr>
+        <tr><td>5</td><td>Dashboard Vet</td><td>Resumen día, citas hoy, recordatorios</td></tr>
+        <tr><td>6</td><td>Lista Pacientes</td><td>Buscador (nombre, tutor, cédula, teléfono)</td></tr>
+        <tr><td>7</td><td>Perfil Paciente</td><td>Datos tutor + mascota + historial</td></tr>
+        <tr><td>8</td><td>Nueva Historia</td><td>Selector secciones a incluir</td></tr>
+        <tr><td>9</td><td>Editor Historia</td><td>9 secciones dinámicas, guardado incremental</td></tr>
+        <tr><td>10</td><td>Vista Historia</td><td>Modo lectura, opción imprimir/compartir</td></tr>
+        <tr><td>11</td><td>Compartir Historia</td><td>Búsqueda vet por nombre/cédula, solicitud</td></tr>
+        <tr><td>12</td><td>Agenda Calendario</td><td>Vista mensual/semanal, filtros</td></tr>
+        <tr><td>13</td><td>Nueva Cita</td><td>Selección paciente, fecha, hora, validación</td></tr>
+        <tr><td>14</td><td>Perfil Veterinario</td><td>Configuración horarios, servicios, datos</td></tr>
+    </tbody>
+</table>
+
+<h3>Módulo Tutor (8 pantallas)</h3>
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Pantalla</th>
+            <th>Funcionalidad Clave</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>1</td><td>Login Tutor</td><td>Cédula + contraseña</td></tr>
+        <tr><td>2</td><td>Registro Tutor</td><td>Datos personales, ubicación completa</td></tr>
+        <tr><td>3</td><td>Dashboard Tutor</td><td>Próximos recordatorios, accesos rápidos</td></tr>
+        <tr><td>4</td><td>Mis Mascotas</td><td>Lista con fotos, datos básicos</td></tr>
+        <tr><td>5</td><td>Perfil Mascota</td><td>Datos completos, historias asociadas</td></tr>
+        <tr><td>6</td><td>Buscador Veterinarios</td><td>Mapa + lista, filtros ubicación/servicio/especie</td></tr>
+        <tr><td>7</td><td>Perfil Vet Público</td><td>Info visible, solo teléfono de contacto</td></tr>
+        <tr><td>8</td><td>Ver Historia Médica</td><td>Solo lectura, opción compartir con otro vet</td></tr>
+    </tbody>
+</table>
+
+<h2>6. Checklist de Entrega (100% Requisitos)</h2>
+
+<ul class="checklist">
+    <li>Registro dual: veterinario vs tutor</li>
+    <li>Verificación manual de colegiatura (bloqueo hasta aprobación)</li>
+    <li>23 colegios de Venezuela en catálogo</li>
+    <li>Ubicación: Estado → Ciudad → Municipio (cascada dinámica)</li>
+    <li>Servicios: general + 13 especialidades</li>
+    <li>13 especies animales soportadas</li>
+    <li>Horarios configurables por día (múltiples franjas)</li>
+    <li>Toggle 24 horas disponible</li>
+    <li>Buscador pacientes: nombre, tutor, cédula, teléfono</li>
+    <li>Auto-completado tutor por cédula (si existe)</li>
+    <li>Registro mascota: 13 campos + foto</li>
+    <li>Historia médica: fecha inmutable, snapshot datos</li>
+    <li>Permisos: solo creador edita, otros solo visualizan</li>
+    <li>9 secciones de historia médica completas</li>
+    <li>Exámenes complementarios con upload de imágenes</li>
+    <li>PDF: header dinámico (datos tutor, paciente, vet), selección secciones</li>
+    <li>Compartir historia: flujo aprobación (pending/accepted/rejected)</li>
+    <li>Vinculación permanente al aceptar</li>
+    <li>Recordatorios: 3 tipos (consulta, vacunación, tratamiento)</li>
+    <li>Notificaciones: 7 días + 24h antes (consulta/vacunación)</li>
+    <li>Notificaciones: 10 min antes (tratamiento)</li>
+    <li>Push + Email simultáneos</li>
+    <li>Agenda calendario con filtros (paciente, tutor, fecha)</li>
+    <li>Buscador tutor: geolocalizado, orden por cercanía</li>
+    <li>Filtros: ubicación, servicio, especie</li>
+    <li>Perfil vet público: solo teléfono visible (no email)</li>
+    <li>Tutor: ver historias, no editar, no imprimir, sí compartir</li>
+    <li>Recordatorios pasan a histórico al cumplirse</li>
+    <li>Una mascota = un tutor (por cédula)</li>
+    <li>Veterinario puede ser "tutor" de sus propias mascotas</li>
+</ul>
+
+<div class="page-break"></div>
+
+<h2>7. Stack Tecnológico</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Capa</th>
+            <th>Tecnología</th>
+            <th>Justificación Velocidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Frontend Móvil</td>
+            <td>Ionic 7 + Angular 17</td>
+            <td>Componentes UI listos, build iOS/Android simultáneo</td>
+        </tr>
+        <tr>
+            <td>Backend API</td>
+            <td>NestJS 10 + TypeORM</td>
+            <td>Generadores automáticos, arquitectura modular</td>
+        </tr>
+        <tr>
+            <td>Base de Datos</td>
+            <td>PostgreSQL 15</td>
+            <td>TypeORM migraciones, backups programados, índices optimizados</td>
+        </tr>
+        <tr>
+            <td>Autenticación</td>
+            <td>Passport + JWT (NestJS)</td>
+            <td>Control total, refresh tokens, roles granulares</td>
+        </tr>
+        <tr>
+            <td>Almacenamiento</td>
+            <td>AWS S3 / MinIO</td>
+            <td>Imágenes optimizadas, presigned URLs, compatible local/cloud</td>
+        </tr>
+        <tr>
+            <td>Notificaciones Push</td>
+            <td>Firebase Cloud Messaging</td>
+            <td>Gratuito, SDK Ionic integrado</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>SendGrid / Resend</td>
+            <td>Templates pre-diseñados, API simple</td>
+        </tr>
+        <tr>
+            <td>PDF Generation</td>
+            <td>Puppeteer + PDFMake</td>
+            <td>HTML→PDF con CSS complejo, headers dinámicos</td>
+        </tr>
+        <tr>
+            <td>Geolocalización</td>
+            <td>PostGIS + Leaflet</td>
+            <td>Queries de distancia nativas, mapa open source</td>
+        </tr>
+        <tr>
+            <td>Deploy</td>
+            <td>Railway (backend + DB) + Vercel (frontend)</td>
+            <td>CI/CD automático, escalamiento simple</td>
+        </tr>
+</tbody>
+</table>
+
+<h2>8. Condiciones de Pago</h2>
+
+<div class="payment-box">
+    <h3 style="margin-top: 0; color: #92400e;">💰 Forma de Pago</h3>
+    <p style="margin-bottom: 10px;">El presupuesto total de <strong>3,000€</strong> se distribuye de la siguiente manera:</p>
+    <div class="payment-grid">
+        <div class="payment-item">
+            <strong>Anticipo para iniciar</strong>
+            <span>1,500€ (50%)</span>
+        </div>
+        <div class="payment-item">
+            <strong>Resto en pagos semanales</strong>
+            <span>~214€/semana</span>
+        </div>
+    </div>
+    <p style="margin-top: 15px; margin-bottom: 0; font-size: 12px;">
+        <strong>Detalle:</strong> Se requiere el 50% del monto total (1,500€) para dar inicio al desarrollo. El 50% restante (1,500€) se distribuye en <strong>7 pagos semanales</strong> de aproximadamente 214€ cada uno, alineados con el avance del cronograma.
+    </p>
+</div>
+
+<h2>9. Entregables Finales</h2>
+
+<ol>
+    <li><strong>Código fuente completo</strong> - Repositorio GitHub privado con historial de commits</li>
+    <li><strong>Aplicación móvil</strong> - APK (Android) y IPA (iOS) para testing</li>
+    <li><strong>API REST desplegada</strong> - Documentación Swagger/OpenAPI</li>
+    <li><strong>Base de datos</strong> - Esquema completo, migraciones, seed data</li>
+    <li><strong>Manual de usuario</strong> - Guía de uso básico (PDF)</li>
+    <li><strong>Documentación técnica</strong> - Arquitectura, decisiones, deploy</li>
+    <li><strong>Video demo</strong> - 5 minutos mostrando flujos principales</li>
+    <li><strong>1 mes de soporte</strong> - Bugs críticos post-lanzamiento</li>
+</ol>
+
+<div class="summary-box" style="margin-top: 40px; text-align: center;">
+    <h2 style="margin-top: 0; border: none;">3,000€ | 300h | 7.5 semanas | 100% Alcance</h2>
+    <p style="font-size: 16px; margin-bottom: 0;">
+        <strong>VETPRIN APP</strong> - Plataforma completa veterinaria<br>
+        Ionic-Angular • NestJS • PostgreSQL • S3
+    </p>
+</div>
+
+<div class="footer">
+    <p>Plan de desarrollo generado el 18 de abril de 2026</p>
+    <p>Este documento es confidencial y específico para el proyecto VETPRIN APP</p>
+</div>
+
+</body>
+</html>
