@@ -21,7 +21,7 @@
             color: #333;
             max-width: 900px;
             margin: 0 auto;
-            padding: 40px 30px;
+            padding: 20px 15px;
             background: #f4f6f9;
         }
 
@@ -34,7 +34,7 @@
 
         .header h1 {
             color: #1e40af;
-            font-size: 32px;
+            font-size: clamp(20px, 5vw, 32px);
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -57,7 +57,7 @@
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 10px;
             margin-top: 15px;
         }
 
@@ -112,6 +112,13 @@
             margin: 15px 0;
             font-size: 13px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: block;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        thead, tbody, tr, th, td {
+            display: revert;
         }
 
         th {
@@ -164,7 +171,7 @@
 
         .checklist {
             list-style: none;
-            columns: 2;
+            columns: 1;
             column-gap: 30px;
         }
 
@@ -219,7 +226,9 @@
             justify-content: space-between;
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 30px;
+            padding: 0 15px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .nav-logo {
@@ -265,8 +274,8 @@
 
         .payment-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            grid-template-columns: 1fr;
+            gap: 10px;
             margin-top: 15px;
         }
 
@@ -341,11 +350,65 @@
             color: #9a3412;
         }
 
+        @media (min-width: 600px) {
+            body {
+                padding: 40px 30px;
+            }
+            .checklist {
+                columns: 2;
+            }
+            .payment-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .nav-inner {
+                padding: 0 30px;
+            }
+        }
+
+        @media (max-width: 599px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            .summary-item span {
+                font-size: 16px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+            h3 {
+                font-size: 16px;
+            }
+            th {
+                font-size: 10px;
+                padding: 8px 6px;
+            }
+            td {
+                padding: 8px 6px;
+                font-size: 12px;
+            }
+            .code-block {
+                font-size: 10px;
+                padding: 10px;
+            }
+            .nav-links {
+                gap: 10px;
+            }
+            .nav-links a {
+                font-size: 11px;
+            }
+            .nav-logo {
+                max-height: 35px;
+            }
+        }
+
         @media print {
             body {
                 max-width: 100%;
                 padding: 15mm;
                 background: #fff;
+            }
+            table {
+                display: table;
             }
             .site-nav {
                 display: none;
