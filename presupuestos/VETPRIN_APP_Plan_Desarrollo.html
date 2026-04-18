@@ -403,6 +403,9 @@
     <p style="margin-top: 15px; margin-bottom: 0; font-size: 12px;">
         <strong>Alcance:</strong> 100% del documento de requisitos original  • 25 tablas • 22 pantallas • 9 secciones médicas
     </p>
+    <p style="margin-top: 10px; margin-bottom: 0; font-size: 12px; color: #92400e;">
+        <strong>⚠️ Nota:</strong> Este presupuesto cubre exclusivamente el <strong>desarrollo web (PWA)</strong>. El despliegue nativo en tiendas tiene un costo adicional de <strong>1,500€ por plataforma</strong> (Android / iOS).
+    </p>
 </div>
 
 <h2>1. Estrategia de Aceleración</h2>
@@ -1114,7 +1117,7 @@ CREATE TABLE shared_histories (
         <tr>
             <td>Notificaciones Push</td>
             <td>Firebase Cloud Messaging</td>
-            <td>Gratuito, SDK Ionic integrado</td>
+            <td>SDK Ionic integrado</td>
         </tr>
         <tr>
             <td>Email</td>
@@ -1159,11 +1162,56 @@ CREATE TABLE shared_histories (
     </p>
 </div>
 
-<h2>9. Entregables Finales</h2>
+<h2>9. Alcance de Plataforma</h2>
+
+<div class="architecture-box">
+    <div class="architecture-item">
+        <strong>📱 Desarrollo Web (incluido en este presupuesto)</strong>
+        Aplicación web progresiva (PWA) accesible desde cualquier navegador en móvil y escritorio. Funciona en Android e iOS sin necesidad de tiendas.
+    </div>
+    <div class="architecture-item" style="border-left-color: #f59e0b;">
+        <strong>🛒 Despliegue Nativo en Tiendas (no incluido)</strong>
+        Compilación, configuración y publicación en Google Play (Android) y/o App Store (iOS). Costo adicional: <strong>1,500€ por plataforma</strong>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Plataforma</th>
+            <th>Incluido</th>
+            <th>Costo Adicional</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Web / PWA (navegador)</td>
+            <td>✅ Sí</td>
+            <td>—</td>
+        </tr>
+        <tr>
+            <td>Android (Google Play)</td>
+            <td>❌ No</td>
+            <td>1,500€</td>
+        </tr>
+        <tr>
+            <td>iOS (App Store)</td>
+            <td>❌ No</td>
+            <td>1,500€</td>
+        </tr>
+        <tr style="background: #eff6ff; font-weight: bold;">
+            <td>Ambas plataformas nativas</td>
+            <td>❌ No</td>
+            <td>3,000€</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>10. Entregables Finales</h2>
 
 <ol>
     <li><strong>Código fuente completo</strong> - Repositorio GitHub privado con historial de commits</li>
-    <li><strong>Aplicación móvil</strong> - APK (Android) y IPA (iOS) para testing</li>
+    <li><strong>Aplicación web (PWA)</strong> - Accesible desde navegador en cualquier dispositivo</li>
     <li><strong>API REST desplegada</strong> - Documentación Swagger/OpenAPI</li>
     <li><strong>Base de datos</strong> - Esquema completo, migraciones, seed data</li>
     <li><strong>Manual de usuario</strong> - Guía de uso básico (PDF)</li>
