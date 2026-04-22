@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presupuesto SSR Panel Admin - Sotaky</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            /* max-width: 900px; */
+            margin: 0 auto;
+            padding: 40px 30px;
+            background: #f4f6f9;
+        }
+
+        .site-nav {
+            background: #f0f4ff;
+            padding: 12px 0;
+            margin-bottom: 30px;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .nav-logo {
+            max-height: 45px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #334155;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .btn-contact {
+            background: #22c55e;
+            color: white !important;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px !important;
+        }
+
+        .btn-contact:hover {
+            background: #16a34a;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 4px solid #7c3aed;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #5b21b6;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header .subtitle {
+            color: #64748b;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            border-left: 5px solid #7c3aed;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .summary-item {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .summary-item strong {
+            color: #5b21b6;
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .summary-item span {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        h2 {
+            color: #5b21b6;
+            font-size: 22px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        h3 {
+            color: #334155;
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #7c3aed;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            background: white;
+        }
+
+        tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        tr:hover td {
+            background: #f5f3ff;
+        }
+
+        .phase-table th {
+            background: #059669;
+        }
+
+        .extras-table th {
+            background: #d97706;
+        }
+
+        .context-box {
+            background: #fef2f2;
+            border-left: 5px solid #ef4444;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .architecture-box {
+            background: #f1f5f9;
+            border: 2px solid #cbd5e1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .architecture-item {
+            background: white;
+            border-left: 4px solid #7c3aed;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .architecture-item strong {
+            color: #5b21b6;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .payment-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .payment-item {
+            background: white;
+            padding: 14px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .payment-item strong {
+            color: #92400e;
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .payment-item span {
+            font-size: 20px;
+            font-weight: 700;
+            color: #78350f;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+            font-size: 13px;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        @media print {
+            body {
+                max-width: 100%;
+                padding: 15mm;
+                background: #fff;
+            }
+            .site-nav {
+                display: none;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="site-nav">
+    <div class="nav-inner">
+        <a href="../index.html">
+            <img src="https://i.ibb.co/n8hzwsQ/logo-Avilapro-Azul-Con-Nombre-Letras-Oscuras-Sin-Fondo.png" alt="logo AvilaPro" class="nav-logo" />
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Inicio</a>
+            <a href="../proyectos.html">Proyectos</a>
+            <a href="../presupuestos/">Presupuestos</a>
+            <a href="https://wa.me/584245142978?text=Hola, estoy interesado en desarrollar una aplicación con usted." target="_blank" class="btn-contact">Contáctame!</a>
+        </div>
+    </div>
+</nav>
+
+<div class="header">
+    <h1>Presupuesto Sotaky</h1>
+    <div class="subtitle">SSR del Panel Admin basado en Roles • Angular/Ionic • NestJS</div>
+</div>
+
+<div class="summary-box">
+    <h3 style="margin-top: 0; color: #5b21b6;">Resumen Ejecutivo</h3>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <strong>Horas Base</strong>
+            <span>75 Horas</span>
+        </div>
+        <div class="summary-item">
+            <strong>Tiempo Estimado</strong>
+            <span>12-13 días</span>
+        </div>
+        <div class="summary-item">
+            <strong>Tarifa</strong>
+            <span>$8/hora</span>
+        </div>
+        <div class="summary-item">
+            <strong>Costo Base</strong>
+            <span style="color: #059669;">$600</span>
+        </div>
+    </div>
+    <p style="margin-top: 15px; margin-bottom: 0; font-size: 12px;">
+        <strong>Jornada:</strong> Lunes a Sábado (6 días/semana) • 3 fases • Backend + Frontend + Seguridad
+    </p>
+</div>
+
+<h2>1. Contexto del Problema</h2>
+
+<div class="context-box">
+    <h3 style="margin-top: 0; color: #991b1b;">⚠️ Situación Actual</h3>
+    <p style="margin-bottom: 10px;">Actualmente el <strong>admin.page</strong> (Angular/Ionic) envía todo el HTML/JS al cliente, incluyendo secciones de Equipo, Alumnos, Profesores, etc. Un usuario con conocimientos técnicos podría inspeccionar el código fuente y ver la estructura completa del panel, incluso si no tiene permisos.</p>
+    <p style="margin-bottom: 0;">El backend (NestJS) actualmente <strong>no tiene guards ni middleware de autenticación/autorización</strong>. Esto implica que el trabajo no es solo "renderizar HTML desde el server", sino <strong>construir toda la capa de seguridad desde cero</strong>.</p>
+</div>
+
+<h2>2. Alcance del Trabajo — 3 Fases</h2>
+
+<h3>Fase 1 — Backend: Sistema de autenticación y autorización</h3>
+
+<div class="architecture-box">
+    <div class="architecture-item">
+        <strong>1. JWT Auth Guard</strong>
+        Crear JWT Auth Guard en NestJS (validar tokens en cada request)
+    </div>
+    <div class="architecture-item">
+        <strong>2. Roles Guard + Decorador @Roles()</strong>
+        Proteger endpoints por rol de usuario
+    </div>
+    <div class="architecture-item">
+        <strong>3. Protección de Endpoints</strong>
+        Proteger todos los endpoints del admin (cursos, alumnos, profesores, equipo, videos, materiales) con guards de rol
+    </div>
+    <div class="architecture-item">
+        <strong>4. Endpoint GET /admin/config</strong>
+        Devuelve las secciones permitidas según el rol del usuario autenticado
+    </div>
+</div>
+
+<h3>Fase 2 — Backend: Endpoint de configuración dinámica</h3>
+
+<div class="architecture-box">
+    <div class="architecture-item">
+        <strong>5. Estructura de navegación dinámica</strong>
+        Endpoint que retorne secciones permitidas por rol (admin, moderator, editor, viewer)
+    </div>
+    <div class="architecture-item">
+        <strong>6. Migración de localStorage al backend</strong>
+        Conectar la gestión de equipo a una tabla de permisos real
+    </div>
+    <div class="architecture-item">
+        <strong>7. Arquitectura de permisos granular</strong>
+        Diseñar estructura flexible para soportar futuras extensiones
+    </div>
+</div>
+
+<h3>Fase 3 — Frontend: Renderizado condicional seguro</h3>
+
+<div class="architecture-box">
+    <div class="architecture-item">
+        <strong>8. Admin Guard en Angular</strong>
+        Validar rol antes de cargar la ruta
+    </div>
+    <div class="architecture-item">
+        <strong>9. Consulta dinámica al backend</strong>
+        Modificar admin.page.ts para consultar qué secciones puede ver el usuario
+    </div>
+    <div class="architecture-item">
+        <strong>10. Lazy loading por sección</strong>
+        Cargar dinámicamente solo las secciones autorizadas
+    </div>
+    <div class="architecture-item">
+        <strong>11. Eliminación de lógica localStorage</strong>
+        Migrar toda la lógica de permisos al backend
+    </div>
+    <div class="architecture-item">
+        <strong>12. Pruebas de seguridad</strong>
+        Verificar que un usuario sin permisos no pueda acceder a endpoints ni ver secciones
+    </div>
+    <div class="architecture-item">
+        <strong>13. Hardening</strong>
+        Ajustes, correcciones y hardening de la arquitectura base
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<h2>3. Estimación de Horas</h2>
+
+<table class="phase-table">
+    <thead>
+        <tr>
+            <th>Fase</th>
+            <th>Horas Estimadas</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Fase 1 — Auth Guards backend</td>
+            <td>22h</td>
+        </tr>
+        <tr>
+            <td>Fase 2 — Endpoint config + tabla permisos + arquitectura granular</td>
+            <td>21h</td>
+        </tr>
+        <tr>
+            <td>Fase 3 — Frontend dinámico</td>
+            <td>32h</td>
+        </tr>
+        <tr style="background: #f5f3ff; font-weight: bold;">
+            <td>TOTAL</td>
+            <td>75h → $600</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>4. Mejoras Adicionales Opcionales (+$300)</h2>
+
+<table class="extras-table">
+    <thead>
+        <tr>
+            <th>Mejora</th>
+            <th>Horas</th>
+            <th>Costo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Logging de auditoría (quién hizo qué acción en el admin)</td>
+            <td>12h</td>
+            <td>$96</td>
+        </tr>
+        <tr>
+            <td>Rate limiting en endpoints sensibles del admin</td>
+            <td>8h</td>
+            <td>$64</td>
+        </tr>
+        <tr>
+            <td>Refresh token rotation para mayor seguridad de sesión</td>
+            <td>9h</td>
+            <td>$72</td>
+        </tr>
+        <tr>
+            <td>Dashboard de actividad reciente (últimas acciones por miembro del equipo)</td>
+            <td>9h</td>
+            <td>$68</td>
+        </tr>
+        <tr style="background: #fffbeb; font-weight: bold;">
+            <td>TOTAL EXTRAS</td>
+            <td>38h</td>
+            <td>$300</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>5. Resumen General</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Concepto</th>
+            <th>Horas</th>
+            <th>Valor</th>
+            <th>Tiempo Estimado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Proyecto base (3 fases)</td>
+            <td>75h</td>
+            <td>$600</td>
+            <td>12-13 días laborales</td>
+        </tr>
+        <tr>
+            <td>Con mejoras adicionales</td>
+            <td>113h</td>
+            <td>$900</td>
+            <td>19-20 días laborales</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="context-box" style="background: #f5f3ff; border-left-color: #7c3aed; margin-top: 25px;">
+    <p style="margin-bottom: 0; color: #5b21b6;">
+        <strong>¿Por qué este costo?</strong> El backend actualmente no tiene ningún sistema de guards/auth — los controllers están completamente abiertos. Construir SSR seguro por roles requiere primero esa base, y una arquitectura de permisos lo suficientemente robusta y granular para soportar tanto las funcionalidades actuales como las mejoras adicionales.
+    </p>
+</div>
+
+<h2>6. Condiciones de Pago</h2>
+
+<div class="payment-box">
+    <h3 style="margin-top: 0; color: #92400e;">💰 Forma de Pago</h3>
+    <p style="margin-bottom: 10px;">El presupuesto base de <strong>$600</strong> se distribuye de la siguiente manera:</p>
+    <div class="payment-grid">
+        <div class="payment-item">
+            <strong>Anticipo para iniciar</strong>
+            <span>$300 (50%)</span>
+        </div>
+        <div class="payment-item">
+            <strong>Resto en pagos semanales</strong>
+            <span>$150/semana</span>
+        </div>
+    </div>
+    <p style="margin-top: 15px; margin-bottom: 0; font-size: 12px;">
+        <strong>Detalle:</strong> Se requiere el 50% del monto total ($300) para dar inicio al desarrollo. El 50% restante ($300) se distribuye en <strong>2 pagos semanales</strong> de $150 cada uno, alineados con el avance del cronograma.
+    </p>
+</div>
+
+<div class="summary-box" style="margin-top: 40px; text-align: center;">
+    <h2 style="margin-top: 0; border: none; color: #5b21b6;">$600 Base | 75h | 12-13 días | Seguridad Completa</h2>
+    <p style="font-size: 16px; margin-bottom: 0;">
+        <strong>SOTAKY</strong> - SSR Panel Admin basado en Roles<br>
+        Angular/Ionic • NestJS • JWT • Guards • Permisos Granulares
+    </p>
+</div>
+
+<div class="footer">
+    <p>Presupuesto generado para el proyecto Sotaky</p>
+    <p>Este documento es confidencial y específico para el cliente</p>
+</div>
+
+</body>
+</html>
