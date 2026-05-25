@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Bot Omnicanal con IA — Elias Levy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0 auto;
+            padding: 40px 30px;
+            background: #f4f6f9;
+        }
+
+        .site-nav {
+            background: #f0f4ff;
+            padding: 12px 0;
+            margin-bottom: 30px;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .nav-logo {
+            max-height: 45px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #334155;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover { color: #2563eb; }
+
+        .btn-contact {
+            background: #22c55e;
+            color: white !important;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px !important;
+        }
+
+        .btn-contact:hover { background: #16a34a; }
+
+        /* ── Layout ── */
+        .page-wrap {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        /* ── Cover ── */
+        .cover {
+            background: linear-gradient(135deg, #0f2044 0%, #1e3a6e 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 50px 40px 40px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .cover .label {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #93c5fd;
+            margin-bottom: 10px;
+        }
+
+        .cover h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .cover .subtitle {
+            font-size: 18px;
+            color: #fbbf24;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .cover .channels-badge {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            padding: 18px 30px;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+
+        .cover .channels-badge p {
+            font-size: 12px;
+            color: #cbd5e1;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .cover .channels-badge .channels-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .cover .channels-badge .powered {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 6px;
+        }
+
+        .cover .channels-badge .saas-tag {
+            font-size: 11px;
+            color: #fbbf24;
+            font-style: italic;
+            margin-top: 2px;
+        }
+
+        .cover-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .cover-meta-item {
+            background: rgba(255,255,255,0.08);
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .cover-meta-item .meta-label {
+            font-size: 10px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cover-meta-item .meta-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 2px;
+        }
+
+        .confidential {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* ── Summary box ── */
+        .summary-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 5px solid #2563eb;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        @media (min-width: 600px) {
+            .summary-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .summary-item {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .summary-item strong {
+            color: #1e40af;
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .summary-item span {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        /* ── Headings ── */
+        h2 {
+            color: #1e3a6e;
+            font-size: 22px;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        h3 {
+            color: #1e40af;
+            font-size: 17px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        /* ── Tables ── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #1e3a6e;
+            color: white;
+            padding: 11px 13px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 10px 13px;
+            border-bottom: 1px solid #e2e8f0;
+            background: white;
+            font-size: 13px;
+        }
+
+        tr:nth-child(even) td { background: #f8fafc; }
+        tr:hover td { background: #eff6ff; }
+
+        .table-green th  { background: #065f46; }
+        .table-amber th  { background: #92400e; }
+        .table-blue2 th  { background: #1d4ed8; }
+        .table-slate th  { background: #334155; }
+
+        /* ── Info boxes ── */
+        .box {
+            padding: 18px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 5px solid;
+        }
+
+        .box-blue  { background: #eff6ff; border-color: #2563eb; }
+        .box-green { background: #f0fdf4; border-color: #16a34a; }
+        .box-amber { background: #fffbeb; border-color: #f59e0b; }
+        .box-red   { background: #fef2f2; border-color: #ef4444; }
+        .box-purple{ background: #f5f3ff; border-color: #7c3aed; }
+        .box-teal  { background: #f0fdfa; border-color: #0d9488; }
+
+        .box p { margin-bottom: 0; }
+
+        .box-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        /* ── Architecture cards ── */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        @media (min-width: 600px) {
+            .arch-grid-2 { grid-template-columns: 1fr 1fr; }
+        }
+
+        .arch-card {
+            background: white;
+            border-left: 4px solid #2563eb;
+            border-radius: 0 8px 8px 0;
+            padding: 14px 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .arch-card strong {
+            color: #1e40af;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+
+        .arch-card p {
+            font-size: 13px;
+            margin: 0;
+            color: #475569;
+            text-align: left;
+        }
+
+        /* ── Plan cards ── */
+        .plan-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .plan-card {
+            background: white;
+            border-radius: 10px;
+            padding: 22px 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 4px solid #2563eb;
+        }
+
+        .plan-card.pro  { border-top-color: #16a34a; }
+        .plan-card.ent  { border-top-color: #f59e0b; }
+
+        .plan-card .plan-name {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #64748b;
+            letter-spacing: 1px;
+        }
+
+        .plan-card .plan-price {
+            font-size: 30px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 6px 0 4px;
+        }
+
+        .plan-card .plan-period {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .plan-card .plan-setup {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .plan-card ul {
+            list-style: none;
+            margin: 12px 0 0;
+            padding: 0;
+            text-align: left;
+        }
+
+        .plan-card ul li {
+            font-size: 12px;
+            color: #475569;
+            padding: 3px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .plan-card ul li::before {
+            content: '✓ ';
+            color: #16a34a;
+            font-weight: 700;
+        }
+
+        /* ── Steps ── */
+        .steps {
+            counter-reset: step;
+            margin: 15px 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+
+        .step-num {
+            background: #1e3a6e;
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .step-content { font-size: 13px; }
+        .step-content strong { color: #1e40af; }
+
+        /* ── Leverage cards ── */
+        .leverage-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        @media (min-width: 600px) {
+            .leverage-cards { grid-template-columns: 1fr 1fr 1fr; }
+        }
+
+        .lev-card {
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid;
+        }
+
+        .lev-card.high  { background: #fef2f2; border-color: #fca5a5; }
+        .lev-card.med   { background: #f0fdf4; border-color: #86efac; }
+        .lev-card.low   { background: #eff6ff; border-color: #93c5fd; }
+
+        .lev-num {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 6px;
+        }
+
+        .lev-card.high .lev-num  { color: #dc2626; }
+        .lev-card.med  .lev-num  { color: #16a34a; }
+        .lev-card.low  .lev-num  { color: #2563eb; }
+
+        .lev-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+        .lev-card.high .lev-title { color: #991b1b; }
+        .lev-card.med  .lev-title { color: #065f46; }
+        .lev-card.low  .lev-title { color: #1e40af; }
+
+        /* ── Dos columnas ── */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 600px) {
+            .two-col { grid-template-columns: 1fr; }
+        }
+
+        .col-card {
+            background: white;
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .col-card.green-top { border-top: 4px solid #16a34a; }
+        .col-card.red-top   { border-top: 4px solid #ef4444; }
+
+        .col-card h4 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .col-card.green-top h4 { color: #065f46; }
+        .col-card.red-top h4   { color: #991b1b; }
+
+        .check-list, .cross-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .check-list li, .cross-list li {
+            font-size: 12px;
+            padding: 5px 0;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+        }
+
+        .check-list li::before { content: '✓ '; color: #16a34a; font-weight: 700; }
+        .cross-list li::before { content: '✗ '; color: #ef4444; font-weight: 700; }
+
+        /* ── Payment timeline ── */
+        .payment-timeline {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .pay-row {
+            display: grid;
+            grid-template-columns: 70px 1fr 100px 120px;
+            gap: 10px;
+            align-items: center;
+            background: white;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            font-size: 13px;
+        }
+
+        .pay-row.header-row {
+            background: #1e3a6e;
+            color: white;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .pay-row.final-row {
+            background: #f0fdf4;
+            border: 2px solid #16a34a;
+            font-weight: 700;
+        }
+
+        .pay-num {
+            background: #1e3a6e;
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .pay-row.final-row .pay-num {
+            background: #16a34a;
+        }
+
+        /* ── ROI table cells ── */
+        .roi-recovered {
+            font-weight: 700;
+            color: #16a34a;
+        }
+
+        .roi-check {
+            color: #16a34a;
+            font-weight: 700;
+        }
+
+        /* ── Scenario cards ── */
+        .scenario-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .scenario-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-top: 5px solid;
+        }
+
+        .scenario-card.a { border-top-color: #f59e0b; }
+        .scenario-card.b { border-top-color: #2563eb; }
+        .scenario-card.c { border-top-color: #16a34a; }
+
+        .scenario-card .sc-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .scenario-card.a .sc-tag { color: #92400e; }
+        .scenario-card.b .sc-tag { color: #1e40af; }
+        .scenario-card.c .sc-tag { color: #065f46; }
+
+        .scenario-card .sc-name { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 12px; }
+
+        .sc-metric { margin-bottom: 8px; }
+        .sc-metric .sc-label { font-size: 11px; color: #64748b; }
+        .sc-metric .sc-value { font-size: 16px; font-weight: 700; color: #0f172a; }
+
+        .sc-roi {
+            margin-top: 14px;
+            padding-top: 10px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .sc-roi .roi-label { font-size: 11px; color: #64748b; }
+        .sc-roi .roi-val   { font-size: 22px; font-weight: 900; }
+
+        .scenario-card.a .roi-val { color: #f59e0b; }
+        .scenario-card.b .roi-val { color: #2563eb; }
+        .scenario-card.c .roi-val { color: #16a34a; }
+
+        /* ── Comparison table ── */
+        .td-good { color: #16a34a; font-weight: 600; }
+        .td-bad  { color: #dc2626; }
+        .td-highlight { background: #eff6ff !important; font-weight: 600; }
+
+        /* ── Footer ── */
+        .footer {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 2px solid #e2e8f0;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .footer strong { color: #1e3a6e; font-size: 14px; }
+
+        /* ── Signature ── */
+        .signature-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 25px 0;
+        }
+
+        .sig-col {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .sig-col h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #94a3b8;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+        }
+
+        .sig-line {
+            border-bottom: 1px solid #cbd5e1;
+            margin-bottom: 8px;
+            height: 30px;
+        }
+
+        .sig-field { font-size: 12px; color: #64748b; margin-bottom: 10px; }
+
+        /* ── Utils ── */
+        p {
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        ul, ol { margin-left: 20px; margin-bottom: 15px; }
+        li { margin-bottom: 5px; font-size: 13px; }
+
+        .text-green  { color: #16a34a; }
+        .text-red    { color: #dc2626; }
+        .text-amber  { color: #d97706; }
+        .text-blue   { color: #2563eb; }
+        .text-purple { color: #7c3aed; }
+        .text-bold   { font-weight: 700; }
+
+        .mt-0 { margin-top: 0 !important; }
+        .mb-0 { margin-bottom: 0 !important; }
+
+        @media print {
+            body { background: #fff; padding: 10mm; }
+            .site-nav { display: none; }
+            .page-break { page-break-before: always; }
+        }
+
+        @media (max-width: 600px) {
+            .pay-row { grid-template-columns: 40px 1fr; }
+            .pay-row .pay-when, .pay-row .pay-acc { display: none; }
+            .cover h1 { font-size: 24px; }
+            .cover .channels-title { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+    <div class="nav-inner">
+        <a href="../index.html">
+            <img src="https://i.ibb.co/n8hzwsQ/logo-Avilapro-Azul-Con-Nombre-Letras-Oscuras-Sin-Fondo.png" alt="AvilaPro" class="nav-logo" />
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Inicio</a>
+            <a href="../proyectos.html">Proyectos</a>
+            <a href="../presupuestos/">Presupuestos</a>
+            <a href="https://wa.me/584245142978?text=Hola, estoy interesado en desarrollar una aplicación con usted." target="_blank" class="btn-contact">Contáctame!</a>
+        </div>
+    </div>
+</nav>
+
+<div class="page-wrap">
+
+<!-- ══════════════════════════════════════════
+     PORTADA
+══════════════════════════════════════════ -->
+<div class="cover">
+    <p class="label">Propuesta de Desarrollo — Versión 1.1</p>
+    <h1>ASISTENTE VIRTUAL OMNICANAL</h1>
+    <p class="subtitle">con Inteligencia Artificial + Modelo SaaS</p>
+
+    <div class="channels-badge">
+        <p>Canales incluidos</p>
+        <div class="channels-title">WhatsApp &bull; Facebook Messenger &bull; Instagram DM</div>
+        <p class="powered">Powered by Claude API (Anthropic) + NestJS + PostgreSQL + Angular</p>
+        <p class="saas-tag">Incluye diseño de modelo SaaS para ofrecer el servicio a terceros</p>
+    </div>
+
+    <div class="cover-meta">
+        <div class="cover-meta-item">
+            <div class="meta-label">Preparado para</div>
+            <div class="meta-value">Elias Levy</div>
+        </div>
+        <div class="cover-meta-item">
+            <div class="meta-label">Fecha de emisión</div>
+            <div class="meta-value">Mayo 2026</div>
+        </div>
+        <div class="cover-meta-item">
+            <div class="meta-label">Valor total del proyecto</div>
+            <div class="meta-value">$7,500 USD</div>
+        </div>
+        <div class="cover-meta-item">
+            <div class="meta-label">Duración del desarrollo</div>
+            <div class="meta-value">10 semanas</div>
+        </div>
+    </div>
+
+    <p class="confidential">Confidencial — Para uso exclusivo del destinatario</p>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     1. RESUMEN EJECUTIVO
+══════════════════════════════════════════ -->
+<h2>1. Resumen Ejecutivo</h2>
+
+<p>El presente documento detalla el desarrollo de un asistente virtual inteligente que atenderá a sus clientes de forma automatizada en tres de los canales de mensajería más utilizados del mundo: <strong>WhatsApp, Facebook Messenger e Instagram Direct</strong>. El sistema utilizará Inteligencia Artificial de última generación para entender el lenguaje natural de sus clientes y brindar respuestas precisas, consistentes y disponibles las <strong>24 horas del día, los 7 días de la semana</strong>.</p>
+
+<p>Este no es un chatbot de preguntas y respuestas fijas. Es un asistente que comprende el contexto de la conversación, recuerda lo que el cliente dijo antes, consulta la información de su negocio en tiempo real y sabe cuándo debe escalar a un agente humano.</p>
+
+<p>Adicionalmente, esta misma plataforma puede convertirse en un producto de software que usted ofrece a otras empresas como servicio mensual (modelo SaaS), generando ingresos recurrentes que recuperan la inversión inicial y la transforman en un negocio rentable de forma independiente.</p>
+
+<div class="summary-box">
+    <h3 class="mt-0" style="color: #1e40af;">Resumen del proyecto</h3>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <strong>Valor total</strong>
+            <span class="text-blue">$7,500 USD</span>
+        </div>
+        <div class="summary-item">
+            <strong>Duración</strong>
+            <span>10 semanas</span>
+        </div>
+        <div class="summary-item">
+            <strong>Costo operativo</strong>
+            <span>$30 – $260 /mes</span>
+        </div>
+        <div class="summary-item">
+            <strong>ROI estimado</strong>
+            <span class="text-green">4 – 13 meses</span>
+        </div>
+    </div>
+    <p style="margin-top: 12px; margin-bottom: 0; font-size: 12px; color: #334155;">
+        <strong>Potencial SaaS:</strong> $149 – $299 USD/mes por cliente adicional &nbsp;|&nbsp;
+        <strong>Recuperación de inversión:</strong> 5 a 13 meses según ritmo de clientes
+    </p>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     2. QUÉ SE VA A CONSTRUIR
+══════════════════════════════════════════ -->
+<h2>2. ¿Qué se va a construir?</h2>
+
+<p>El proyecto consta de tres componentes principales que trabajan en conjunto para ofrecer una experiencia de atención al cliente completamente automatizada e inteligente.</p>
+
+<h3>2.1 El Bot de Inteligencia Artificial</h3>
+<p>El núcleo del sistema es un motor de inteligencia artificial basado en <strong>Claude (Anthropic)</strong>. Este motor es capaz de:</p>
+
+<div class="arch-grid">
+    <div class="arch-card">
+        <strong>Lenguaje natural</strong>
+        <p>Leer y entender el mensaje del cliente sin comandos ni menús.</p>
+    </div>
+    <div class="arch-card">
+        <strong>Base de conocimiento en tiempo real</strong>
+        <p>Buscar en catálogo, precios, políticas y horarios para responder con información real y actualizada.</p>
+    </div>
+    <div class="arch-card">
+        <strong>Memoria de conversación</strong>
+        <p>Recuerda el contexto: si el cliente preguntó algo antes, el bot lo recuerda.</p>
+    </div>
+    <div class="arch-card">
+        <strong>Escalación a humano</strong>
+        <p>Detecta cuándo una pregunta supera su capacidad y notifica a un agente humano.</p>
+    </div>
+    <div class="arch-card">
+        <strong>Personalidad de marca</strong>
+        <p>Responde de forma consistente con el tono e identidad de su negocio.</p>
+    </div>
+</div>
+
+<h3>2.2 Integración con los 3 canales de Meta</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Canal</th>
+            <th>Qué puede hacer el bot</th>
+            <th>Limitación importante</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>WhatsApp</strong></td>
+            <td>Responder mensajes, enviar información, guiar al cliente paso a paso</td>
+            <td class="text-red">Solo puede responder dentro de 24h del último mensaje. Para iniciar, se necesita plantilla aprobada por Meta.</td>
+        </tr>
+        <tr>
+            <td><strong>Facebook Messenger</strong></td>
+            <td>Atención completa, respuestas automáticas, botones de acción rápida</td>
+            <td class="text-green">Sin costo extra por mensajes. La API es gratuita para este canal.</td>
+        </tr>
+        <tr>
+            <td><strong>Instagram DM</strong></td>
+            <td>Responder mensajes directos del perfil de Instagram de negocio</td>
+            <td class="text-amber">Requiere cuenta de Instagram Business conectada a una página de Facebook.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>2.3 Panel de Administración Web</h3>
+<p>Panel web donde usted y su equipo podrán ver todas las conversaciones en tiempo real, tomar control manual, editar la base de conocimiento y ver estadísticas por canal.</p>
+
+
+<!-- ══════════════════════════════════════════
+     3. CÓMO FUNCIONA
+══════════════════════════════════════════ -->
+<h2>3. ¿Cómo funciona el sistema?</h2>
+
+<p>Cuando un cliente le escribe por cualquiera de los tres canales, ocurre lo siguiente en <strong>menos de 2 segundos</strong>:</p>
+
+<table class="table-blue2">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Paso</th>
+            <th>Quién lo hace</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>1</strong></td>
+            <td>El cliente escribe un mensaje en WhatsApp, Facebook o Instagram</td>
+            <td>El cliente</td>
+        </tr>
+        <tr>
+            <td><strong>2</strong></td>
+            <td>Meta envía ese mensaje a nuestro servidor en tiempo real</td>
+            <td class="text-blue text-bold">Meta API</td>
+        </tr>
+        <tr>
+            <td><strong>3</strong></td>
+            <td>El servidor identifica el canal, el cliente y recupera el historial</td>
+            <td>Sistema desarrollado</td>
+        </tr>
+        <tr>
+            <td><strong>4</strong></td>
+            <td>Se busca en la base de conocimiento si hay información relevante</td>
+            <td>Motor RAG (IA)</td>
+        </tr>
+        <tr>
+            <td><strong>5</strong></td>
+            <td>Se envía el mensaje + historial + información a la IA para generar respuesta</td>
+            <td class="text-blue text-bold">Claude AI</td>
+        </tr>
+        <tr>
+            <td><strong>6</strong></td>
+            <td>La respuesta se envía de vuelta al cliente por el canal correspondiente</td>
+            <td>Sistema + Meta API</td>
+        </tr>
+        <tr>
+            <td><strong>7</strong></td>
+            <td>La conversación se guarda en base de datos para revisión y estadísticas</td>
+            <td>Base de datos</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="box box-green">
+    <p class="box-title text-green">Analogía para entenderlo mejor</p>
+    <p class="mb-0">Imagine que contrató a un empleado que ha leído todo el manual de su empresa, conoce todos sus productos y precios, recuerda cada conversación con cada cliente, y trabaja los 365 días del año sin descanso. Ese es el bot.</p>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     4. ENTRENAMIENTO
+══════════════════════════════════════════ -->
+<h2>4. ¿Cómo se entrena el bot con su información?</h2>
+
+<p>La información de su negocio se carga en una base de conocimiento que el bot consulta en tiempo real. No es programación rígida: es búsqueda inteligente sobre sus propios documentos.</p>
+
+<h3>Proceso de entrenamiento inicial</h3>
+
+<div class="steps">
+    <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content"><strong>Usted nos entrega la información de su negocio:</strong> catálogo, preguntas frecuentes, políticas, horarios, guiones de venta. En cualquier formato: Word, PDF, Excel o texto.</div>
+    </div>
+    <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content"><strong>Procesamos y cargamos esa información al sistema:</strong> cada documento se convierte en fragmentos inteligentes que el bot consulta en tiempo real.</div>
+    </div>
+    <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content"><strong>Configuramos la personalidad del bot:</strong> nombre, tono, idiomas, qué hacer cuando no sabe algo, y cuándo escalar a un humano.</div>
+    </div>
+    <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content"><strong>Pruebas y ajuste con usted:</strong> hacemos conversaciones de prueba para ajustar el comportamiento hasta que quede ideal para su negocio.</div>
+    </div>
+</div>
+
+<div class="box box-amber">
+    <p class="box-title" style="color: #92400e;">Mantenimiento continuo (usted mismo puede hacerlo)</p>
+    <p class="mb-0">Desde el panel de administración, puede agregar nuevos productos, cambiar precios o actualizar cualquier información en minutos, sin necesidad de llamarnos. El bot aprenderá la información nueva de inmediato.</p>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     5. CRONOGRAMA
+══════════════════════════════════════════ -->
+<h2>5. Cronograma del Proyecto (10 semanas)</h2>
+
+<p>El desarrollo está organizado en fases secuenciales. Cada fase entrega componentes funcionales que puede revisar y probar antes de continuar a la siguiente.</p>
+
+<table class="table-slate">
+    <thead>
+        <tr>
+            <th>Semana</th>
+            <th>Fase</th>
+            <th>Qué se entrega</th>
+            <th>Puede revisar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>1 – 2</strong></td>
+            <td><strong>Configuración</strong></td>
+            <td>Configuración Meta App, webhooks de los 3 canales, servidor base con HTTPS</td>
+            <td>Puede enviar un mensaje de prueba a los 3 canales y recibir respuesta básica</td>
+        </tr>
+        <tr>
+            <td><strong>3 – 4</strong></td>
+            <td class="text-blue text-bold">Motor del bot</td>
+            <td>Integración completa con IA (Claude), manejo de sesiones, historial en base de datos</td>
+            <td>El bot mantiene conversaciones coherentes con contexto</td>
+        </tr>
+        <tr>
+            <td><strong>5 – 6</strong></td>
+            <td style="color:#d97706;font-weight:700;">Entrenamiento</td>
+            <td>Carga de información de su negocio, sistema RAG, ajuste de personalidad del bot</td>
+            <td>El bot ya responde con información real de su empresa</td>
+        </tr>
+        <tr>
+            <td><strong>7 – 8</strong></td>
+            <td class="text-green text-bold">Panel admin</td>
+            <td>Panel web completo: bandeja de conversaciones, editor de conocimiento, estadísticas, handoff a humano</td>
+            <td>Puede acceder al panel, ver conversaciones en vivo y tomar el control</td>
+        </tr>
+        <tr>
+            <td><strong>9 – 10</strong></td>
+            <td class="text-red text-bold">Entrega final</td>
+            <td>Pruebas exhaustivas en los 3 canales, despliegue en producción, documentación y capacitación</td>
+            <td>Sistema completamente funcional en producción. Sesión de capacitación incluida.</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<!-- ══════════════════════════════════════════
+     6. COSTOS OPERATIVOS
+══════════════════════════════════════════ -->
+<h2>6. Costos Mensuales de Operación (post-lanzamiento)</h2>
+
+<p>Una vez que el sistema está en producción, usted paga directamente a los proveedores de tecnología. Esto es completamente independiente del costo de desarrollo.</p>
+
+<h3>6.1 Inteligencia Artificial — Claude API</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Volumen mensual</th>
+            <th>Conversaciones/mes</th>
+            <th>Costo estimado IA</th>
+            <th>Perfil de negocio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="background:#f0fdf4;font-weight:700;">Bajo</td>
+            <td>100 – 500 conv.</td>
+            <td class="text-green text-bold">$10 – $30 USD</td>
+            <td>Negocio pequeño, pocas consultas diarias</td>
+        </tr>
+        <tr>
+            <td style="background:#fffbeb;font-weight:700;">Medio</td>
+            <td>500 – 2,000 conv.</td>
+            <td class="text-amber text-bold">$30 – $80 USD</td>
+            <td>Negocio con atención activa, e-commerce mediano</td>
+        </tr>
+        <tr>
+            <td style="background:#fef2f2;font-weight:700;">Alto</td>
+            <td>2,000 – 5,000 conv.</td>
+            <td class="text-red text-bold">$80 – $150 USD</td>
+            <td>Empresa con alto tráfico de mensajes</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>6.2 Meta API — WhatsApp, Facebook e Instagram</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Canal</th>
+            <th>¿Cuándo es GRATIS?</th>
+            <th>¿Cuándo tiene costo?</th>
+            <th>Costo aprox.</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>WhatsApp</strong></td>
+            <td class="text-green">Cuando el cliente escribe primero. Todas las respuestas dentro de 24h son gratuitas.</td>
+            <td class="text-red">Mensajes de marketing iniciados por la empresa.</td>
+            <td>$0.01 – $0.12 por mensaje de marketing</td>
+        </tr>
+        <tr>
+            <td><strong>Facebook Messenger</strong></td>
+            <td class="text-green">Siempre. La API de Messenger es completamente gratuita.</td>
+            <td>No aplica costo adicional.</td>
+            <td class="text-green text-bold">$0 USD</td>
+        </tr>
+        <tr>
+            <td><strong>Instagram DM</strong></td>
+            <td class="text-green">Cuando el cliente escribe primero. Respuestas dentro de 24h son gratuitas.</td>
+            <td class="text-amber">Mensajes de marketing iniciados por la empresa.</td>
+            <td>Similar a WhatsApp si aplica marketing</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>6.3 Resumen del costo mensual total (uso propio)</h3>
+
+<table class="table-green">
+    <thead>
+        <tr>
+            <th>Componente</th>
+            <th>Escenario conservador</th>
+            <th>Escenario activo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Inteligencia Artificial (Claude API)</td>
+            <td>$10 – $30 USD</td>
+            <td>$80 – $150 USD</td>
+        </tr>
+        <tr>
+            <td>Meta API (WhatsApp, Facebook, Instagram)</td>
+            <td class="text-green">$0 USD (solo atención inbound)</td>
+            <td>$20 – $60 USD (si incluye marketing)</td>
+        </tr>
+        <tr>
+            <td>Servidor en la nube</td>
+            <td>$20 – $30 USD</td>
+            <td>$30 – $50 USD</td>
+        </tr>
+        <tr style="font-weight:700;">
+            <td>TOTAL MENSUAL ESTIMADO</td>
+            <td class="text-green" style="font-size:15px;">$30 – $60 USD/mes</td>
+            <td class="text-amber" style="font-size:15px;">$130 – $260 USD/mes</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<!-- ══════════════════════════════════════════
+     7. MODELO SaaS
+══════════════════════════════════════════ -->
+<h2>7. Oportunidad de Negocio: Conviértalo en un Servicio SaaS</h2>
+
+<div class="box box-purple">
+    <p class="box-title" style="color:#5b21b6;">La idea clave</p>
+    <p class="mb-0">La plataforma que se desarrolla para usted no es solo para su negocio. Es una infraestructura completa que, con ajustes mínimos (logo, colores, información del cliente), puede ofrecerse a otras empresas como un servicio mensual. <strong>Usted pagó por construir el motor: ahora puede vender el automóvil cuantas veces quiera.</strong></p>
+</div>
+
+<h3>7.1 ¿Cómo funciona el modelo SaaS?</h3>
+<p>SaaS significa <em>Software as a Service</em>. En lugar de venderle a alguien un programa que instala en su computadora, usted le da acceso a su plataforma ya construida en la nube a cambio de un pago mensual recurrente.</p>
+
+<div class="two-col">
+    <div class="col-card" style="border-top: 4px solid #2563eb;">
+        <h4 style="color:#1e40af;">Qué hace usted (una sola vez por cliente)</h4>
+        <ul class="check-list">
+            <li>Crear una cuenta nueva en el panel para ese cliente</li>
+            <li>Conectar sus canales de Meta (WhatsApp, FB, Instagram)</li>
+            <li>Cargar la información de su negocio (catálogo, FAQs)</li>
+            <li>Configurar el tono y personalidad del bot</li>
+        </ul>
+        <p style="margin-top:10px; font-style:italic; color:#64748b; font-size:12px;">Tiempo estimado de setup: 4 a 8 horas por cliente</p>
+    </div>
+    <div class="col-card" style="border-top: 4px solid #16a34a;">
+        <h4 style="color:#065f46;">Qué cobra mensualmente</h4>
+        <p class="text-blue text-bold" style="font-size:15px; margin-bottom:4px;">Plan Básico: $149 USD/mes</p>
+        <p class="text-green text-bold" style="font-size:15px; margin-bottom:4px;">Plan Profesional: $249 USD/mes</p>
+        <p class="text-amber text-bold" style="font-size:15px; margin-bottom:0;">Plan Empresarial: $399 USD/mes</p>
+        <p style="font-size:12px; color:#64748b; margin-top:10px; font-style:italic;">Ingresos que se cobran sin importar si el cliente usa mucho o poco el bot.</p>
+    </div>
+</div>
+
+<h3>7.2 Planes y precios sugeridos para sus clientes</h3>
+<p>El mercado de chatbots omnicanal con IA cobra entre $95 y $500 USD/mes por soluciones similares. Los precios propuestos a continuación son competitivos y rentables:</p>
+
+<div class="plan-cards">
+    <div class="plan-card">
+        <div class="plan-name">Básico</div>
+        <div class="plan-price text-blue">$149</div>
+        <div class="plan-period">USD / mes</div>
+        <div class="plan-setup">Setup único: $300 USD</div>
+        <ul>
+            <li>Bot en los 3 canales</li>
+            <li>Hasta 1,000 conv./mes</li>
+            <li>Soporte por email</li>
+            <li>Actualizaciones de contenido mensuales</li>
+        </ul>
+    </div>
+    <div class="plan-card pro">
+        <div class="plan-name">Profesional</div>
+        <div class="plan-price text-green">$249</div>
+        <div class="plan-period">USD / mes</div>
+        <div class="plan-setup">Setup único: $500 USD</div>
+        <ul>
+            <li>Todo lo del plan Básico</li>
+            <li>Hasta 3,000 conv./mes</li>
+            <li>Estadísticas avanzadas</li>
+            <li>Handoff a agente humano</li>
+            <li>Soporte prioritario</li>
+        </ul>
+    </div>
+    <div class="plan-card ent">
+        <div class="plan-name">Empresarial</div>
+        <div class="plan-price text-amber">$399</div>
+        <div class="plan-period">USD / mes</div>
+        <div class="plan-setup">Setup único: $800 USD</div>
+        <ul>
+            <li>Todo lo anterior</li>
+            <li>Conversaciones ilimitadas</li>
+            <li>Integraciones personalizadas</li>
+            <li>Reportes mensuales</li>
+            <li>Soporte dedicado con SLA garantizado</li>
+        </ul>
+    </div>
+</div>
+
+<div class="box box-teal">
+    <p class="box-title" style="color:#0f766e;">Referencia de mercado 2026</p>
+    <p class="mb-0">Plataformas como Crisp cobran $95/mes, Chatbase $150/mes y ManyChat desde $17/mes pero con funcionalidades muy limitadas. Su ventaja competitiva es ofrecer un bot completamente personalizado con la información real del negocio del cliente, en sus 3 canales de Meta, con soporte en español y a un precio intermedio del mercado.</p>
+</div>
+
+<h3>7.3 Su costo real por cliente adicional</h3>
+<p>Cada nuevo cliente que agrega a su plataforma genera costos marginales muy bajos, ya que la infraestructura base ya está pagada:</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Concepto</th>
+            <th>Costo por cliente/mes</th>
+            <th>Nota</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>IA (Claude API) para ese cliente</td>
+            <td>$10 – $40 USD</td>
+            <td>Depende del volumen de conversaciones</td>
+        </tr>
+        <tr>
+            <td>Hosting adicional (fracción del servidor)</td>
+            <td>$5 – $15 USD</td>
+            <td>El servidor existente aguanta varios clientes</td>
+        </tr>
+        <tr>
+            <td>Meta API (si solo atienden mensajes entrantes)</td>
+            <td class="text-green text-bold">$0 USD</td>
+            <td>Gratuito para respuestas inbound en 24h</td>
+        </tr>
+        <tr>
+            <td>Soporte y mantenimiento (tiempo suyo)</td>
+            <td>$20 – $50 USD equiv.</td>
+            <td>Estimado 1-2h/mes por cliente en promedio</td>
+        </tr>
+        <tr style="background:#fef2f2;">
+            <td><strong>COSTO TOTAL POR CLIENTE/MES</strong></td>
+            <td class="text-red text-bold">$35 – $105 USD</td>
+            <td></td>
+        </tr>
+        <tr style="background:#f0fdf4;">
+            <td><strong>MARGEN NETO (Plan Básico $149)</strong></td>
+            <td class="text-green text-bold">$44 – $114 USD/mes</td>
+            <td class="text-green">Margen bruto del 30–76%</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>7.4 Fee del desarrollador</h3>
+<p>El sistema no se mantiene solo. Cada mes hay tareas que garantizan que el bot funcione correctamente: monitoreo, actualizaciones, ajustes de IA, integraciones con Meta, y soporte técnico.</p>
+
+<div class="box box-amber">
+    <p class="box-title" style="color:#92400e;">¿Por qué el desarrollador debe cobrar mensualmente?</p>
+    <p class="mb-0">Cuando un cliente paga su mensualidad SaaS, no solo está pagando por la tecnología: está pagando por la tranquilidad de que alguien calificado está detrás del sistema. Si el bot falla, si Meta cambia su API, si el servidor se cae, si la IA necesita ajustes — el desarrollador responde. Ese seguro tiene un precio.</p>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Tarea mensual</th>
+            <th>Frecuencia</th>
+            <th>Tiempo est.</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Monitoreo del servidor y uptime</td>
+            <td>Semanal</td>
+            <td>0.5 h/mes</td>
+            <td>Verificar que el bot responde correctamente en los 3 canales</td>
+        </tr>
+        <tr>
+            <td>Actualizaciones de librerías y dependencias</td>
+            <td>Mensual</td>
+            <td>1 h/mes</td>
+            <td>Mantener el sistema seguro y compatible con cambios de Meta API</td>
+        </tr>
+        <tr>
+            <td>Ajustes al comportamiento del bot (prompts, lógica)</td>
+            <td>Según necesidad</td>
+            <td>1–2 h/mes</td>
+            <td>El cliente pide cambios en el tono, nuevas respuestas o flujos</td>
+        </tr>
+        <tr>
+            <td>Soporte técnico al cliente final</td>
+            <td>Según necesidad</td>
+            <td>0.5–1 h/mes</td>
+            <td>Dudas del cliente sobre el panel, conversaciones o reportes</td>
+        </tr>
+        <tr>
+            <td>Respaldo y revisión de la base de datos</td>
+            <td>Mensual</td>
+            <td>0.5 h/mes</td>
+            <td>Verificar que el historial de conversaciones esté íntegro</td>
+        </tr>
+        <tr>
+            <td>Adaptaciones a cambios de Meta / Claude API</td>
+            <td>Cuando aplique</td>
+            <td>1–3 h/trimestre</td>
+            <td>Meta y Anthropic actualizan sus APIs periódicamente</td>
+        </tr>
+        <tr style="background:#eff6ff; font-weight:700;">
+            <td>TOTAL HORAS ESTIMADAS POR CLIENTE/MES</td>
+            <td colspan="2" style="background:#eff6ff; font-size:15px;" class="text-blue">3.5 – 5 h</td>
+            <td style="background:#eff6ff;">Promedio mensual considerando meses tranquilos y activos</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Fee mensual recomendado para el desarrollador</h3>
+
+<table class="table-blue2">
+    <thead>
+        <tr>
+            <th>Plan del cliente</th>
+            <th>Precio que paga</th>
+            <th>Fee desarrollador/mes</th>
+            <th>% del plan</th>
+            <th>Justificación</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Básico</strong></td>
+            <td>$149 USD</td>
+            <td class="text-blue text-bold">$40 USD</td>
+            <td>27%</td>
+            <td>~1.5 h de mantenimiento mensual a $27/h promedio</td>
+        </tr>
+        <tr>
+            <td><strong>Profesional</strong></td>
+            <td>$249 USD</td>
+            <td class="text-green text-bold">$70 USD</td>
+            <td>28%</td>
+            <td>~2.5 h, incluye soporte prioritario y ajustes de IA</td>
+        </tr>
+        <tr>
+            <td><strong>Empresarial</strong></td>
+            <td>$399 USD</td>
+            <td class="text-amber text-bold">$120 USD</td>
+            <td>30%</td>
+            <td>~4 h: integraciones, reportes personalizados, SLA garantizado</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Cómo queda el flujo completo por cada cliente (Plan Básico)</h3>
+
+<table>
+    <thead>
+        <tr><th>Concepto</th><th>Monto</th><th>Observación</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Precio mensual que paga el cliente</strong></td><td class="text-green text-bold">+ $149 USD</td><td>Ingreso bruto mensual</td></tr>
+        <tr><td>(-) Costo IA (Claude API)</td><td class="text-red">- $25 USD</td><td>Variable según uso</td></tr>
+        <tr><td>(-) Hosting proporcional</td><td class="text-red">- $10 USD</td><td>Fracción del servidor compartido</td></tr>
+        <tr><td>(-) Meta API (mensajes marketing, si aplica)</td><td class="text-green">- $0 USD</td><td>$0 si solo atiende mensajes entrantes</td></tr>
+        <tr><td><strong>= Ganancia bruta antes del fee de desarrollo</strong></td><td class="text-bold">= $114 USD</td><td class="text-green">Margen bruto del 77%</td></tr>
+        <tr style="background:#fffbeb;"><td>(-) Fee mensual del desarrollador</td><td class="text-amber text-bold">- $40 USD</td><td>~27% del precio del plan</td></tr>
+        <tr style="background:#f0fdf4; font-weight:700;"><td>= GANANCIA NETA PARA EL DUEÑO DEL NEGOCIO</td><td class="text-green" style="font-size:15px;">= $74 USD/mes</td><td>Por cada cliente, sin trabajar en ese mes</td></tr>
+    </tbody>
+</table>
+
+<div class="box box-amber">
+    <p class="box-title" style="color:#92400e;">Regla práctica: el 25–30% del plan mensual va al desarrollador</p>
+    <p class="mb-0">Este porcentaje cubre todas las tareas de mantenimiento, actualizaciones y soporte. Es una práctica estándar en productos SaaS donde hay un equipo técnico detrás. Si usted es a la vez el dueño del negocio y el desarrollador, ese 25–30% es su compensación por el trabajo técnico continuo, separado de la ganancia como empresario.</p>
+</div>
+
+<h3>Proyección del fee del desarrollador acumulado</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Mes</th>
+            <th>Clientes activos</th>
+            <th>Fee/cliente (prom.)</th>
+            <th>Fee total del mes</th>
+            <th>Fee acumulado (año)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Mes 3</td><td>6</td><td>$47</td><td class="text-blue text-bold">$282</td><td></td></tr>
+        <tr><td>Mes 6</td><td>12</td><td>$47</td><td class="text-blue text-bold">$564</td><td></td></tr>
+        <tr><td>Mes 9</td><td>18</td><td>$47</td><td class="text-blue text-bold">$846</td><td></td></tr>
+        <tr><td>Mes 12</td><td>24</td><td>$47</td><td class="text-blue text-bold">$1,128</td><td class="text-green text-bold">$8,460 (año 1)</td></tr>
+        <tr><td>Mes 18</td><td>30</td><td>$47</td><td class="text-blue text-bold">$1,410</td><td></td></tr>
+        <tr><td>Mes 24</td><td>30</td><td>$47</td><td class="text-blue text-bold">$1,410</td><td class="text-green text-bold">$15,510 (año 2)</td></tr>
+    </tbody>
+</table>
+
+<div class="box box-green">
+    <p class="box-title text-green">Resumen del fee del desarrollador</p>
+    <p>Año 1 (escenario moderado): <strong>$8,460 USD</strong> en fees de mantenimiento.</p>
+    <p class="mb-0">Año 2: <strong>$15,510 USD</strong> adicionales. Total en 2 años: <strong>~$23,970 USD</strong> solo en compensación técnica — completamente independiente de la ganancia del dueño del negocio, que en el mismo período supera los $32,000 USD.</p>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     8. MÓDULO CRECIMIENTO
+══════════════════════════════════════════ -->
+<h2>8. Módulo de Crecimiento de Seguidores en Redes Sociales</h2>
+
+<div class="box box-teal">
+    <p class="box-title" style="color:#0f766e;">La realidad sobre conseguir seguidores</p>
+    <p class="mb-0">El bot mejora la retención y satisfacción de quienes ya le siguen, pero los seguidores nuevos llegan principalmente por el contenido que las personas descubren. Ninguna herramienta de automatización reemplaza una buena estrategia de contenido. Lo que sí puede hacerse es potenciar el crecimiento orgánico con automatización inteligente de engagement.</p>
+</div>
+
+<h3>8.1 Las tres palancas reales de crecimiento</h3>
+
+<div class="leverage-cards">
+    <div class="lev-card high">
+        <div class="lev-num">1</div>
+        <div class="lev-title">Contenido consistente (Reels, Stories, Posts)</div>
+        <p style="font-size:12px; margin-bottom:8px;">El algoritmo de Instagram y Facebook premia a las cuentas activas. Publicar 4–7 Reels por semana es la palanca más poderosa de crecimiento orgánico en 2026.</p>
+        <p style="font-size:11px; color:#991b1b; font-style:italic; margin:0;">Esta palanca está fuera del alcance del bot, pero puede recomendarse al cliente contratar un community manager aparte.</p>
+    </div>
+    <div class="lev-card med">
+        <div class="lev-num">2</div>
+        <div class="lev-title">Automatización de engagement por palabras clave</div>
+        <p style="font-size:12px; margin-bottom:8px;">Cuando alguien comenta una palabra clave (ej. "INFO", "PRECIO", "QUIERO"), el bot envía automáticamente un DM con información relevante, catálogo o una oferta.</p>
+        <p style="font-size:11px; color:#065f46; font-weight:600; margin:0;">✓ 100% legal &nbsp;|&nbsp; ✓ Implementable en el sistema actual &nbsp;|&nbsp; ✓ Funciona en IG y FB</p>
+    </div>
+    <div class="lev-card low">
+        <div class="lev-num">3</div>
+        <div class="lev-title">Anuncios de Meta (Meta Ads)</div>
+        <p style="font-size:12px; margin-bottom:8px;">Con $5–$15 USD/día se pueden conseguir 50–200 seguidores nuevos y calificados por semana según el nicho y la creatividad del anuncio.</p>
+        <p style="font-size:11px; color:#1e40af; font-style:italic; margin:0;">Requiere gestión de especialista en pauta publicitaria (servicio separado al desarrollo del bot).</p>
+    </div>
+</div>
+
+<h3>8.2 Cómo funciona la automatización de engagement</h3>
+
+<table class="table-blue2">
+    <thead>
+        <tr><th>Paso</th><th>Acción</th><th>Qué ocurre en el sistema</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>1</strong></td>
+            <td>El cliente publica un Reel o Post con llamado a la acción: "Comenta INFO para recibir el catálogo"</td>
+            <td>Publicación normal, no requiere ninguna acción del sistema todavía</td>
+        </tr>
+        <tr>
+            <td><strong>2</strong></td>
+            <td>Un usuario ve la publicación y comenta "INFO"</td>
+            <td>Meta detecta el comentario y lo envía al webhook del sistema mediante la API de Instagram Graph</td>
+        </tr>
+        <tr>
+            <td><strong>3</strong></td>
+            <td>El sistema detecta la palabra clave configurada</td>
+            <td>NestJS recibe el evento, identifica la palabra clave y busca el mensaje programado</td>
+        </tr>
+        <tr>
+            <td><strong>4</strong></td>
+            <td>El bot envía automáticamente un DM al usuario</td>
+            <td>Se envía el mensaje personalizado (catálogo, link, oferta) por Instagram DM o Facebook Messenger</td>
+        </tr>
+        <tr>
+            <td><strong>5</strong></td>
+            <td>El engagement de la publicación sube</td>
+            <td class="text-green text-bold">Meta muestra la publicación a más personas → más visitas al perfil → más seguidores nuevos.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="box box-green">
+    <p class="box-title text-green">Ejemplo real del efecto</p>
+    <p class="mb-0">Una tienda de ropa publica un Reel y dice: "Comenta CATALO para recibir el catálogo completo con precios". En las primeras 2 horas recibe 80 comentarios. El algoritmo de Instagram ve ese engagement y muestra el Reel a 5,000 personas adicionales. El bot, mientras tanto, ya envió automáticamente el catálogo a los 80 usuarios. <strong>Sin intervención humana.</strong></p>
+</div>
+
+<h3>8.3 Lo que el bot SÍ puede hacer vs. lo que NO puede</h3>
+
+<div class="two-col">
+    <div class="col-card green-top">
+        <h4>Lo que el bot SÍ puede hacer</h4>
+        <ul class="check-list">
+            <li>Responder DMs automáticamente en los 3 canales 24/7</li>
+            <li>Enviar DM automático al detectar comentario con palabra clave</li>
+            <li>Responder rápidamente (Meta premia la velocidad con más alcance)</li>
+            <li>Calificar leads que llegan por anuncios pagados</li>
+            <li>Mantener conversaciones de ventas con prospectos</li>
+            <li>Dar seguimiento automático a usuarios que interactuaron</li>
+        </ul>
+    </div>
+    <div class="col-card red-top">
+        <h4>Lo que está fuera del alcance del bot</h4>
+        <ul class="cross-list">
+            <li>Crear o publicar contenido (fotos, videos, Reels)</li>
+            <li>Conseguir seguidores sin que haya contenido atractivo primero</li>
+            <li>Gestionar una estrategia de contenido o calendar editorial</li>
+            <li>Crear ni gestionar anuncios de Meta Ads</li>
+            <li>Garantizar un número específico de seguidores nuevos por mes</li>
+            <li>Interactuar con cuentas de terceros (comentar, seguir, dar likes)</li>
+        </ul>
+    </div>
+</div>
+
+<h3>8.4 Costo del módulo de crecimiento (add-on opcional)</h3>
+
+<table class="table-amber">
+    <thead>
+        <tr><th>Componente</th><th>Costo de desarrollo</th><th>Add-on mensual</th><th>Incluye</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Módulo de palabras clave en comentarios (Instagram + Facebook)</td>
+            <td class="text-blue text-bold">$600 USD (pago único)</td>
+            <td class="text-green text-bold">+ $30 USD/mes</td>
+            <td>Hasta 10 palabras clave configurables desde el panel</td>
+        </tr>
+        <tr>
+            <td>Respuestas automáticas a Stories</td>
+            <td class="text-blue text-bold">$400 USD (pago único)</td>
+            <td>Incluido en el add-on anterior</td>
+            <td>Bot responde automáticamente cuando alguien interactúa con una Story</td>
+        </tr>
+        <tr>
+            <td>Panel de gestión de palabras clave y respuestas automáticas</td>
+            <td>Incluido en el desarrollo anterior</td>
+            <td>Incluido</td>
+            <td>El cliente gestiona sus propias palabras clave sin soporte técnico</td>
+        </tr>
+        <tr style="font-weight:700; background:#fffbeb;">
+            <td>TOTAL MÓDULO COMPLETO</td>
+            <td class="text-blue" style="font-size:15px;">$1,000 USD</td>
+            <td class="text-green" style="font-size:15px;">+ $30 USD/mes</td>
+            <td>Add-on al proyecto base</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>8.5 Estrategia completa recomendada</h3>
+
+<table>
+    <thead>
+        <tr><th>Prioridad</th><th>Acción</th><th>Quién lo hace</th><th>Resultado esperado</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-red text-bold">ALTA</td>
+            <td>Publicar 4–7 Reels por semana con llamados a la acción ("comenta X para recibir Y")</td>
+            <td class="text-amber">Community manager o el mismo cliente</td>
+            <td>Crecimiento orgánico sostenido. Sin esto, las demás acciones tienen impacto limitado.</td>
+        </tr>
+        <tr>
+            <td class="text-red text-bold">ALTA</td>
+            <td>Activar el módulo de palabras clave: bot envía DM automático a cada persona que comenta</td>
+            <td class="text-blue">Bot (automático, ya incluido en el add-on)</td>
+            <td>Cada publicación genera conversaciones de venta automáticas y aumenta el engagement.</td>
+        </tr>
+        <tr>
+            <td class="text-amber text-bold">MEDIA</td>
+            <td>Invertir $150–$300 USD/mes en Meta Ads para amplificar publicaciones con más engagement</td>
+            <td class="text-amber">Cliente (con gestión de especialista en pauta)</td>
+            <td>200–800 seguidores nuevos y calificados por mes según nicho y creatividad.</td>
+        </tr>
+        <tr>
+            <td class="text-amber text-bold">MEDIA</td>
+            <td>Bot atiende a todos los prospectos que llegan por anuncios y contenido orgánico</td>
+            <td class="text-blue">Bot (automático, incluido en el proyecto base)</td>
+            <td>Ninguna oportunidad de venta se pierde. El bot convierte seguidores en compradores.</td>
+        </tr>
+        <tr>
+            <td class="text-blue text-bold">BAJA</td>
+            <td>Respuestas automáticas a Stories para mantener la conversación activa</td>
+            <td class="text-blue">Bot (automático, incluido en el add-on)</td>
+            <td>Mejor retención de seguidores actuales y más tiempo en el perfil.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="box box-teal">
+    <p class="box-title" style="color:#0f766e;">Fórmula: ¿Cómo consigue más seguidores este sistema?</p>
+    <p class="mb-0"><strong>Contenido frecuente (Reels) + Palabras clave que disparan DM automático = Mayor engagement → Mayor alcance orgánico → Nuevos seguidores.</strong> Si además se invierte en Meta Ads, el ciclo se acelera: los anuncios traen prospectos, el bot los atiende, y los convierte en clientes y seguidores.</p>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     9. ROI
+══════════════════════════════════════════ -->
+<h2>9. Análisis de Retorno de Inversión (ROI)</h2>
+
+<h3>9.1 Tres escenarios de crecimiento</h3>
+
+<div class="scenario-cards">
+    <div class="scenario-card a">
+        <div class="sc-tag">Escenario A</div>
+        <div class="sc-name">Conservador (1 cliente/mes)</div>
+        <div class="sc-metric">
+            <div class="sc-label">Ingreso bruto/mes (a los 6 meses)</div>
+            <div class="sc-value">$1,014 USD</div>
+        </div>
+        <div class="sc-metric">
+            <div class="sc-label">Costos infra estimados</div>
+            <div class="sc-value">~$210 USD</div>
+        </div>
+        <div class="sc-metric">
+            <div class="sc-label">Ganancia neta/mes</div>
+            <div class="sc-value">~$804 USD</div>
+        </div>
+        <div class="sc-roi">
+            <div class="roi-label">ROI en</div>
+            <div class="roi-val">13 meses</div>
+        </div>
+    </div>
+    <div class="scenario-card b">
+        <div class="sc-tag">Escenario B</div>
+        <div class="sc-name">Moderado (2 clientes/mes)</div>
+        <div class="sc-metric">
+            <div class="sc-label">Ingreso bruto/mes (a los 6 meses)</div>
+            <div class="sc-value">$2,268 USD</div>
+        </div>
+        <div class="sc-metric">
+            <div class="sc-label">Costos infra estimados</div>
+            <div class="sc-value">~$360 USD</div>
+        </div>
+        <div class="sc-metric">
+            <div class="sc-label">Ganancia neta/mes</div>
+            <div class="sc-value">~$1,908 USD</div>
+        </div>
+        <div class="sc-roi">
+            <div class="roi-label">ROI en</div>
+            <div class="roi-val">7 meses</div>
+        </div>
+    </div>
+    <div class="scenario-card c">
+        <div class="sc-tag">Escenario C</div>
+        <div class="sc-name">Agresivo (3 clientes/mes)</div>
+        <div class="sc-metric">
+            <div class="sc-label">Ingreso bruto/mes (a los 6 meses)</div>
+            <div class="sc-value">$3,762 USD</div>
+        </div>
+        <div class="sc-metric">
+            <div class="sc-label">Costos infra estimados</div>
+            <div class="sc-value">~$510 USD</div>
+        </div>
+        <div class="sc-metric">
+            <div class="sc-label">Ganancia neta/mes</div>
+            <div class="sc-value">~$3,252 USD</div>
+        </div>
+        <div class="sc-roi">
+            <div class="roi-label">ROI en</div>
+            <div class="roi-val">4 meses</div>
+        </div>
+    </div>
+</div>
+
+<div class="box box-blue">
+    <p class="box-title text-blue">Supuestos del cálculo</p>
+    <p class="mb-0">Mix de planes: 70% Plan Básico ($149) y 30% Plan Profesional ($249) → ingreso promedio de $179/cliente/mes. Costo de IA por cliente: $25/mes promedio. Hosting incremental: $10/cliente/mes. Soporte estimado: 1.5h/mes a $30/h = $45/cliente. Inversión a recuperar: $7,500 USD.</p>
+</div>
+
+<h3>9.2 Tabla de amortización mes a mes (primeros 18 meses)</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Mes</th>
+            <th>Esc. A — clientes</th>
+            <th>Ganancia/mes</th>
+            <th>Recuperado</th>
+            <th>Esc. B — clientes</th>
+            <th>Ganancia/mes</th>
+            <th>Recuperado</th>
+            <th>Esc. C — clientes</th>
+            <th>Ganancia/mes</th>
+            <th>Recuperado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>1</td><td>1</td><td>$109</td><td>$109</td><td>2</td><td>$318</td><td>$318</td><td>3</td><td>$567</td><td>$567</td></tr>
+        <tr><td>2</td><td>2</td><td>$278</td><td>$387</td><td>4</td><td>$696</td><td>$1,014</td><td>6</td><td>$1,159</td><td>$1,726</td></tr>
+        <tr><td>3</td><td>3</td><td>$447</td><td>$834</td><td>6</td><td>$1,039</td><td>$2,053</td><td>9</td><td>$1,786</td><td>$3,512</td></tr>
+        <tr><td>4</td><td>4</td><td>$616</td><td>$1,450</td><td>8</td><td>$1,417</td><td>$3,470</td><td>12</td><td>$2,378</td><td>$5,890</td></tr>
+        <tr><td>5</td><td>5</td><td>$750</td><td>$2,200</td><td>10</td><td>$1,760</td><td>$5,230</td><td><strong>15</strong></td><td><strong>$2,970</strong></td><td class="roi-recovered">$7,500 ✓</td></tr>
+        <tr><td>6</td><td>6</td><td>$919</td><td>$3,119</td><td>12</td><td>$2,138</td><td>$7,368</td><td>18</td><td>$3,597</td><td class="roi-recovered">$7,500 ✓</td></tr>
+        <tr><td>7</td><td>7</td><td>$1,088</td><td>$4,207</td><td><strong>14</strong></td><td><strong>$2,516</strong></td><td class="roi-recovered">$7,500 ✓</td><td>21</td><td>$4,189</td><td class="roi-recovered">$7,500 ✓</td></tr>
+        <tr><td>8</td><td>8</td><td>$1,257</td><td>$5,464</td><td>16</td><td>$2,859</td><td class="roi-recovered">$7,500 ✓</td><td>24</td><td>$4,816</td><td class="roi-recovered">$7,500 ✓</td></tr>
+        <tr><td>9</td><td>9</td><td>$1,426</td><td>$6,890</td><td>18</td><td>$3,237</td><td class="roi-recovered">$7,500 ✓</td><td>27</td><td>$5,408</td><td class="roi-recovered">$7,500 ✓</td></tr>
+        <tr><td>10</td><td><strong>10</strong></td><td><strong>$1,560</strong></td><td class="roi-recovered">$7,500 ✓</td><td>20</td><td>$3,580</td><td class="roi-recovered">$7,500 ✓</td><td>30</td><td>$6,000</td><td class="roi-recovered">$7,500 ✓</td></tr>
+        <tr><td>12</td><td>12</td><td>$1,898</td><td class="roi-recovered">$7,500 ✓</td><td>24</td><td>$4,336</td><td class="roi-recovered">$7,500 ✓</td><td>30</td><td>$6,000</td><td class="roi-recovered">$7,500 ✓</td></tr>
+        <tr><td>15</td><td>15</td><td>$2,370</td><td class="roi-recovered">$7,500 ✓</td><td>30</td><td>$5,400</td><td class="roi-recovered">$7,500 ✓</td><td>30</td><td>$6,000</td><td class="roi-recovered">$7,500 ✓</td></tr>
+        <tr><td>18</td><td>18</td><td>$2,877</td><td class="roi-recovered">$7,500 ✓</td><td>30</td><td>$5,400</td><td class="roi-recovered">$7,500 ✓</td><td>30</td><td>$6,000</td><td class="roi-recovered">$7,500 ✓</td></tr>
+    </tbody>
+</table>
+
+<div class="box box-blue">
+    <p class="box-title text-blue">Lectura de la tabla</p>
+    <p class="mb-0">Las celdas con <strong class="text-green">✓</strong> indican el mes exacto en que se supera la inversión de $7,500. A partir de ese punto, todos los ingresos son ganancia pura. A 18 meses con escenario moderado (B), la ganancia acumulada supera los <strong>$18,000 USD</strong> con una base de 30 clientes que generan ingresos estables mes a mes.</p>
+</div>
+
+<h3>9.3 Proyección de ingresos a 2 años</h3>
+
+<table class="table-slate">
+    <thead>
+        <tr><th>Hito</th><th>Escenario A</th><th>Escenario B</th><th>Escenario C</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Clientes al mes 12</td><td>12 clientes</td><td>24 clientes</td><td>30+ clientes</td></tr>
+        <tr><td>Ingresos brutos mes 12</td><td>~$2,148/mes</td><td>~$4,296/mes</td><td>~$5,370/mes</td></tr>
+        <tr><td>Inversión recuperada</td><td>Mes 13</td><td>Mes 7</td><td>Mes 4</td></tr>
+        <tr>
+            <td><strong>Ganancia neta acumulada (mes 24)</strong></td>
+            <td class="text-amber text-bold" style="font-size:15px;">~$12,000 USD</td>
+            <td class="text-blue text-bold" style="font-size:15px;">~$32,000 USD</td>
+            <td class="text-green text-bold" style="font-size:15px;">~$58,000 USD</td>
+        </tr>
+        <tr>
+            <td><strong>Ingreso mensual recurrente (mes 24)</strong></td>
+            <td class="text-amber text-bold">$2,500+/mes</td>
+            <td class="text-blue text-bold">$5,000+/mes</td>
+            <td class="text-green text-bold">$7,000+/mes</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="box box-purple">
+    <p class="box-title" style="color:#5b21b6;">Por qué el SaaS es tan rentable a largo plazo</p>
+    <p class="mb-0">A diferencia de los proyectos de desarrollo donde cobra una vez, el modelo SaaS genera ingresos recurrentes y predecibles cada mes. Un cliente en el plan Básico a $149/mes vale <strong>$1,788 al año</strong>. Si retiene 20 clientes, eso son <strong>$35,760 de ingreso anual</strong> con la infraestructura ya pagada.</p>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     10. PRESUPUESTO Y PAGOS
+══════════════════════════════════════════ -->
+<h2>10. Presupuesto y Plan de Pagos</h2>
+
+<h3>10.1 Desglose del costo de desarrollo</h3>
+
+<table class="table-slate">
+    <thead>
+        <tr><th>Componente del desarrollo</th><th>Horas est.</th><th>% del proyecto</th><th>Valor</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Configuración Meta API (3 canales: WhatsApp, Facebook, Instagram)</td>
+            <td>30 h</td><td>20%</td><td class="text-bold">$1,500</td>
+        </tr>
+        <tr>
+            <td>Backend NestJS: webhooks, lógica del bot, integración IA, historial</td>
+            <td>50 h</td><td>33%</td><td class="text-bold">$2,500</td>
+        </tr>
+        <tr>
+            <td>Entrenamiento del bot (RAG, base de conocimiento, ajuste de IA)</td>
+            <td>20 h</td><td>13%</td><td class="text-bold">$1,000</td>
+        </tr>
+        <tr>
+            <td>Panel de administración Angular (dashboard, editor, estadísticas)</td>
+            <td>30 h</td><td>20%</td><td class="text-bold">$1,500</td>
+        </tr>
+        <tr>
+            <td>Pruebas, despliegue en producción, documentación y capacitación</td>
+            <td>20 h</td><td>13%</td><td class="text-bold">$1,000</td>
+        </tr>
+        <tr style="background:#1e3a6e; color:white; font-weight:700;">
+            <td>TOTAL DEL PROYECTO</td>
+            <td>~150 h</td><td>100%</td><td style="font-size:16px;">$7,500 USD</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>10.2 Plan de pagos</h3>
+
+<div class="box box-amber">
+    <p class="box-title" style="color:#92400e;">Lógica del plan de pagos</p>
+    <p><strong>Anticipo inicial:</strong> 50% del total = <strong>$3,750 USD</strong> (se paga al firmar el contrato, antes de iniciar el trabajo).</p>
+    <p class="mb-0"><strong>Saldo restante:</strong> $3,750 USD dividido en 10 cuotas semanales de <strong>$375 USD</strong> cada una — cobradas cada viernes al finalizar la semana de trabajo correspondiente.</p>
+</div>
+
+<div class="payment-timeline">
+    <div class="pay-row header-row">
+        <div>Pago #</div>
+        <div>Concepto</div>
+        <div class="pay-when">Cuándo</div>
+        <div class="pay-acc">Acumulado pagado</div>
+    </div>
+    <div class="pay-row" style="background:#eff6ff; border:1px solid #93c5fd;">
+        <div><strong>0</strong></div>
+        <div><strong>Anticipo del 50% — Inicio del proyecto</strong></div>
+        <div class="pay-when">Al firmar</div>
+        <div class="pay-acc text-blue text-bold">$3,750 USD</div>
+    </div>
+    <div class="pay-row">
+        <div class="pay-num">1</div>
+        <div>Fin semana 1 — Configuración Meta API</div>
+        <div class="pay-when">Semana 1</div>
+        <div class="pay-acc">$4,125 USD</div>
+    </div>
+    <div class="pay-row">
+        <div class="pay-num">2</div>
+        <div>Fin semana 2 — Webhooks verificados y funcionando</div>
+        <div class="pay-when">Semana 2</div>
+        <div class="pay-acc">$4,500 USD</div>
+    </div>
+    <div class="pay-row">
+        <div class="pay-num">3</div>
+        <div>Fin semana 3 — Motor del bot con IA integrada</div>
+        <div class="pay-when">Semana 3</div>
+        <div class="pay-acc">$4,875 USD</div>
+    </div>
+    <div class="pay-row">
+        <div class="pay-num">4</div>
+        <div>Fin semana 4 — Historial de conversaciones activo</div>
+        <div class="pay-when">Semana 4</div>
+        <div class="pay-acc">$5,250 USD</div>
+    </div>
+    <div class="pay-row">
+        <div class="pay-num">5</div>
+        <div>Fin semana 5 — Base de conocimiento cargada</div>
+        <div class="pay-when">Semana 5</div>
+        <div class="pay-acc">$5,625 USD</div>
+    </div>
+    <div class="pay-row">
+        <div class="pay-num">6</div>
+        <div>Fin semana 6 — Entrenamiento y ajuste del bot</div>
+        <div class="pay-when">Semana 6</div>
+        <div class="pay-acc">$6,000 USD</div>
+    </div>
+    <div class="pay-row">
+        <div class="pay-num">7</div>
+        <div>Fin semana 7 — Panel admin (vista conversaciones)</div>
+        <div class="pay-when">Semana 7</div>
+        <div class="pay-acc">$6,375 USD</div>
+    </div>
+    <div class="pay-row">
+        <div class="pay-num">8</div>
+        <div>Fin semana 8 — Panel admin completo con editor</div>
+        <div class="pay-when">Semana 8</div>
+        <div class="pay-acc">$6,750 USD</div>
+    </div>
+    <div class="pay-row">
+        <div class="pay-num">9</div>
+        <div>Fin semana 9 — Pruebas y ajustes finales</div>
+        <div class="pay-when">Semana 9</div>
+        <div class="pay-acc">$7,125 USD</div>
+    </div>
+    <div class="pay-row final-row">
+        <div class="pay-num">10</div>
+        <div><strong>Fin semana 10 — Entrega final en producción ✓</strong></div>
+        <div class="pay-when">Semana 10</div>
+        <div class="pay-acc text-green">$7,500 USD</div>
+    </div>
+</div>
+
+<div class="box box-red">
+    <p class="box-title" style="color:#991b1b;">Condiciones del plan de pagos</p>
+    <ul style="margin-bottom:0;">
+        <li>El anticipo del 50% es no reembolsable y cubre costos de configuración inicial, licencias y reserva de tiempo exclusivo de desarrollo.</li>
+        <li>Las cuotas semanales se pagan cada viernes. Si hay retraso en un pago, el trabajo de la semana siguiente se pausa hasta regularización.</li>
+        <li>El acceso al panel de administración y el entregable final se otorgan una vez completado el 100% del pago.</li>
+    </ul>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     11. ALCANCE
+══════════════════════════════════════════ -->
+<h2>11. Alcance del Proyecto</h2>
+
+<div class="two-col">
+    <div class="col-card green-top">
+        <h4>INCLUIDO en el proyecto</h4>
+        <ul class="check-list">
+            <li>Bot funcional en los 3 canales (WhatsApp, Facebook, Instagram)</li>
+            <li>Integración oficial con Meta Cloud API</li>
+            <li>Motor de IA con comprensión de lenguaje natural</li>
+            <li>Base de conocimiento con la información de su negocio</li>
+            <li>Historial de conversaciones en base de datos</li>
+            <li>Panel de administración web completo</li>
+            <li>Handoff: transferencia a agente humano cuando sea necesario</li>
+            <li>Arquitectura multi-tenant (permite agregar clientes SaaS)</li>
+            <li>1 mes de soporte gratuito post-entrega</li>
+            <li>Sesión de capacitación para su equipo (1 sesión de 2h)</li>
+        </ul>
+    </div>
+    <div class="col-card red-top">
+        <h4>NO incluido (puede cotizarse aparte)</h4>
+        <ul class="cross-list">
+            <li>Registro y pago de la cuenta de Meta Business (lo gestiona el cliente)</li>
+            <li>Campañas de mensajes masivos / marketing automation</li>
+            <li>Integración con sistemas externos (CRM, ERP, tiendas online)</li>
+            <li>Aplicación móvil nativa (iOS o Android)</li>
+            <li>Hosting después del mes 1 (el cliente paga su propio servidor)</li>
+            <li>Modificaciones al alcance después de iniciado el desarrollo</li>
+        </ul>
+    </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     12. POR QUÉ VALE LO QUE VALE
+══════════════════════════════════════════ -->
+<h2>12. ¿Por qué vale lo que vale?</h2>
+
+<table>
+    <thead>
+        <tr><th>Opción</th><th>Costo inicial</th><th>Costo mensual</th><th>Limitaciones</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Plataforma SaaS (ManyChat, Tidio, etc.)</td>
+            <td>$0 – $300</td>
+            <td>$50 – $500/mes forever</td>
+            <td class="text-red">Sin personalización real, no se integra con sus datos, depende de un proveedor externo</td>
+        </tr>
+        <tr>
+            <td>Agencia de desarrollo internacional</td>
+            <td class="text-red">$15,000 – $30,000</td>
+            <td class="text-red">$500 – $2,000/mes</td>
+            <td class="text-red">Muy costoso, tiempos más largos, pocas modificaciones incluidas</td>
+        </tr>
+        <tr class="td-highlight">
+            <td><strong>Esta propuesta (uso propio)</strong></td>
+            <td class="text-blue text-bold">$7,500 (una sola vez)</td>
+            <td class="text-green">$30 – $260/mes en consumo</td>
+            <td class="text-green">Solución a medida, código propio, sin dependencia de plataformas externas</td>
+        </tr>
+        <tr class="td-highlight">
+            <td><strong>Esta propuesta (modelo SaaS)</strong></td>
+            <td class="text-blue text-bold">$7,500 (una sola vez)</td>
+            <td class="text-green text-bold">Genera $149–$399/cliente/mes</td>
+            <td class="text-green">Inversión recuperable en 4–13 meses. Después: ganancia pura y creciente</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="box box-purple">
+    <p class="box-title" style="color:#5b21b6;">Retorno de inversión: resumen ejecutivo</p>
+    <p>Con solo <strong>10 clientes en Plan Básico</strong>, genera $1,490/mes de ingresos brutos. Sus costos operativos para esos 10 clientes son aproximadamente $700/mes. <strong>Ganancia neta: $790/mes.</strong> La inversión de $7,500 se recupera en aproximadamente 10 meses.</p>
+    <p class="mb-0">Con 20 clientes: <strong>~$3,580/mes de ganancia neta</strong>. Con 30 clientes: <strong>~$5,370/mes</strong>. Un negocio SaaS de bot que en 2 años puede generar más de <strong>$64,000 anuales</strong> de manera recurrente y predecible.</p>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     13. ACEPTACIÓN
+══════════════════════════════════════════ -->
+<h2>13. Aceptación de la Propuesta</h2>
+
+<p>La firma de este documento implica la aceptación de los términos, el alcance, los plazos y el plan de pagos detallados en esta propuesta. Se procederá a la elaboración del contrato formal una vez confirmado el acuerdo.</p>
+
+<div class="signature-box">
+    <div class="sig-col">
+        <h4>Proveedor del servicio</h4>
+        <div class="sig-line"></div>
+        <div class="sig-field">Firma</div>
+        <div class="sig-line"></div>
+        <div class="sig-field">Nombre: Eduardo Mejias Avila — Avilapro</div>
+        <div class="sig-line"></div>
+        <div class="sig-field">Fecha</div>
+    </div>
+    <div class="sig-col">
+        <h4>Cliente</h4>
+        <div class="sig-line"></div>
+        <div class="sig-field">Firma</div>
+        <div class="sig-line"></div>
+        <div class="sig-field">Nombre: Elias Levy</div>
+        <div class="sig-line"></div>
+        <div class="sig-field">Fecha</div>
+    </div>
+</div>
+
+<div class="box box-blue" style="text-align:center;">
+    <p class="mb-0" style="font-size:14px; color:#1e40af;"><em>Gracias por su confianza. Estamos listos para transformar la atención al cliente de su negocio — y convertirlo en un modelo de ingresos recurrentes.</em></p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <strong>Eduardo Mejias Avila — Avilapro</strong>
+    <p style="margin-top:6px;">Programador fullstack de aplicaciones &nbsp;|&nbsp; <a href="https://wa.me/584245142978" style="color:#2563eb;">WhatsApp: +58 424 514 2978</a></p>
+    <p style="margin-top:4px; font-size:11px;">Propuesta Bot Omnicanal con IA — Versión 1.1 &nbsp;|&nbsp; Mayo 2026 &nbsp;|&nbsp; Confidencial</p>
+</div>
+
+</div><!-- end .page-wrap -->
+</body>
+</html>
