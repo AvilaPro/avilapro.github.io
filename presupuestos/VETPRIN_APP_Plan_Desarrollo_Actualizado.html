@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Desarrollo VETPRIN APP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html{
+            display: flex;
+            justify-content: center;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 15px;
+            background: #f4f6f9;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 4px solid #2563eb;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #1e40af;
+            font-size: clamp(20px, 5vw, 32px);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header .subtitle {
+            color: #64748b;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 5px solid #2563eb;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .summary-item {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .summary-item strong {
+            color: #1e40af;
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .summary-item span {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        h2 {
+            color: #1e40af;
+            font-size: 22px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        h3 {
+            color: #334155;
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        h4 {
+            color: #475569;
+            font-size: 15px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: block;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        thead, tbody, tr, th, td {
+            display: revert;
+        }
+
+        th {
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            background: white;
+        }
+
+        tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        tr:hover td {
+            background: #eff6ff;
+        }
+
+        .week-table th {
+            background: #059669;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+
+        .checklist {
+            list-style: none;
+            columns: 1;
+            column-gap: 30px;
+        }
+
+        .checklist li {
+            padding: 6px 0;
+            font-size: 13px;
+            break-inside: avoid;
+        }
+
+        .checklist li:before {
+            content: "☑ ";
+            color: #059669;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .architecture-box {
+            background: #f1f5f9;
+            border: 2px solid #cbd5e1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .architecture-item {
+            background: white;
+            border-left: 4px solid #2563eb;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .architecture-item strong {
+            color: #1e40af;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .site-nav {
+            background: #f0f4ff;
+            padding: 12px 0;
+            margin-bottom: 30px;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-logo {
+            max-height: 45px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #334155;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .btn-contact {
+            background: #22c55e;
+            color: white !important;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px !important;
+        }
+
+        .btn-contact:hover {
+            background: #16a34a;
+        }
+
+        .payment-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .payment-item {
+            background: white;
+            padding: 14px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .payment-item strong {
+            color: #92400e;
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .payment-item span {
+            font-size: 20px;
+            font-weight: 700;
+            color: #78350f;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+            font-size: 13px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-blue {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-green {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-orange {
+            background: #ffedd5;
+            color: #9a3412;
+        }
+
+        .badge-red {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-purple {
+            background: #f3e8ff;
+            color: #6b21a8;
+        }
+
+        .change-box {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-left: 5px solid #22c55e;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .change-box-removed {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-left: 5px solid #ef4444;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .change-box-added {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-left: 5px solid #22c55e;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        @media (min-width: 600px) {
+            body {
+                padding: 40px 30px;
+            }
+            .checklist {
+                columns: 2;
+            }
+            .payment-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .nav-inner {
+                padding: 0 30px;
+            }
+        }
+
+        @media (max-width: 599px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            .summary-item span {
+                font-size: 16px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+            h3 {
+                font-size: 16px;
+            }
+            th {
+                font-size: 10px;
+                padding: 8px 6px;
+            }
+            td {
+                padding: 8px 6px;
+                font-size: 12px;
+            }
+            .code-block {
+                font-size: 10px;
+                padding: 10px;
+            }
+            .nav-links {
+                gap: 10px;
+            }
+            .nav-links a {
+                font-size: 11px;
+            }
+            .nav-logo {
+                max-height: 35px;
+            }
+        }
+
+        @media print {
+            body {
+                max-width: 100%;
+                padding: 15mm;
+                background: #fff;
+            }
+            table {
+                display: table;
+            }
+            .site-nav {
+                display: none;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="site-nav no-print">
+    <div class="nav-inner">
+        <a href="../index.html">
+            <img src="https://i.ibb.co/n8hzwsQ/logo-Avilapro-Azul-Con-Nombre-Letras-Oscuras-Sin-Fondo.png" alt="logo AvilaPro" class="nav-logo" />
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Inicio</a>
+            <a href="../proyectos.html">Proyectos</a>
+            <a href="../presupuestos/">Presupuestos</a>
+            <a href="https://wa.me/584245142978?text=Hola, estoy interesado en desarrollar una aplicación con usted." target="_blank" class="btn-contact">Contáctame!</a>
+        </div>
+    </div>
+</nav>
+
+<div class="header">
+    <h1>Plan de Desarrollo VETPRIN APP</h1>
+    <div class="subtitle">Ionic-Angular • NestJS • PostgreSQL • S3 • 100% Alcance</div>
+</div>
+
+<div class="summary-box">
+    <h3 style="margin-top: 0; color: #1e40af;">Resumen Ejecutivo</h3>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <strong>Duración Total</strong>
+            <span>7.5 Semanas</span>
+        </div>
+        <div class="summary-item">
+            <strong>Horas Totales</strong>
+            <span>300 Horas</span>
+        </div>
+        <div class="summary-item">
+            <strong>Tarifa</strong>
+            <span>10€/hora</span>
+        </div>
+        <div class="summary-item">
+            <strong>Costo Total</strong>
+            <span style="color: #059669;">3,000€</span>
+        </div>
+    </div>
+    <p style="margin-top: 15px; margin-bottom: 0; font-size: 12px;">
+        <strong>Alcance:</strong> 100% del documento de requisitos actualizado  • 24 tablas • 18 pantallas • 8 secciones médicas • Sistema de suscripción
+    </p>
+    <p style="margin-top: 10px; margin-bottom: 0; font-size: 12px; color: #92400e;">
+        <strong>⚠️ Nota:</strong> Este presupuesto cubre exclusivamente el <strong>desarrollo web (PWA)</strong>. El despliegue nativo en tiendas tiene un costo adicional de <strong>1,500€ por plataforma</strong> (Android / iOS).
+    </p>
+</div>
+
+<div class="change-box">
+    <h3 style="margin-top: 0; color: #059669;">📋 Versión Actualizada del Proyecto</h3>
+    <p style="margin-bottom: 10px; font-size: 13px;">Este presupuesto ha sido <strong>reestructurado</strong> en base a las nuevas especificaciones del cliente. Se han eliminado funcionalidades y agregado otras de similar complejidad, manteniendo el <strong>costo total de 3,000€</strong>.</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+        <div class="change-box-removed" style="margin: 0;">
+            <strong style="color: #991b1b; font-size: 12px;">➖ ELIMINADO</strong>
+            <ul style="margin: 8px 0 0 16px; font-size: 12px;">
+                <li>Compartir historias entre veterinarios</li>
+                <li>Mapa interactivo + geolocalización</li>
+                <li>Pasarela de pagos integrada</li>
+                <li>Recordatorios de 3 tipos complejos</li>
+                <li>Admin panel completo</li>
+            </ul>
+        </div>
+        <div class="change-box-added" style="margin: 0;">
+            <strong style="color: #065f46; font-size: 12px;">➕ AGREGADO</strong>
+            <ul style="margin: 8px 0 0 16px; font-size: 12px;">
+                <li>Sistema de suscripción (prueba + anual)</li>
+                <li>Código único por mascota</li>
+                <li>Transferencia de tutoría</li>
+                <li>Verificación por email (2 fases)</li>
+                <li>Calendario del tutor</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<h2>1. Estrategia de Aceleración</h2>
+
+<div class="architecture-box">
+    <div class="architecture-item">
+        <strong>1. Ionic Starter Templates</strong>
+        UI components, form builders dinámicos, calendario integrado.
+    </div>
+    <div class="architecture-item">
+        <strong>2. Generadores de Código</strong>
+        NestJS CRUD generator, TypeORM entity generator, Angular schematics.
+    </div>
+    <div class="architecture-item">
+        <strong>3. Trabajo Paralelo</strong>
+        Backend (días 1-15) + Frontend (días 8-30 solapado) + Integración (días 25-37)
+    </div>
+    <div class="architecture-item">
+        <strong>4. Feature Flags</strong>
+        Desarrollo por capas, versión funcional día 20 para testing temprano
+    </div>
+</div>
+
+<h2>2. Distribución de Horas por Módulo</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Módulo</th>
+            <th>Horas</th>
+            <th>%</th>
+            <th>Estrategia de Aceleración</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Setup + Infraestructura</td>
+            <td>15h</td>
+            <td>5%</td>
+            <td>PostgreSQL, templates ready</td>
+        </tr>
+        <tr>
+            <td>Autenticación + Verificación Email</td>
+            <td>28h</td>
+            <td>9%</td>
+            <td>JWT + Passport, verificación código email, registro 2 fases</td>
+        </tr>
+        <tr>
+            <td>Veterinarios (registro 2 fases, verificación, horarios, suscripción)</td>
+            <td>47h</td>
+            <td>16%</td>
+            <td>Form builders dinámicos, sistema de prueba 30 días, suspensión granular</td>
+        </tr>
+        <tr>
+            <td>Gestión de pacientes + Código único + Transferencia tutoría</td>
+            <td>40h</td>
+            <td>13%</td>
+            <td>CRUD generator, generación códigos, flujo transferencia con email</td>
+        </tr>
+        <tr>
+            <td><strong>Historias médicas completas</strong></td>
+            <td><strong>65h</strong></td>
+            <td><strong>22%</strong></td>
+            <td><strong>8 secciones, permisos granulares, PDF, datos clínicos sincronizados</strong></td>
+        </tr>
+        <tr>
+            <td>Agenda + Calendario dual (Vet + Tutor)</td>
+            <td>35h</td>
+            <td>12%</td>
+            <td>Ionic Calendar, notificaciones consulta, vista mensual/día</td>
+        </tr>
+        <tr>
+            <td>Módulo Tutor (buscador por filtros, perfil mascota)</td>
+            <td>30h</td>
+            <td>10%</td>
+            <td>Filtros combinados, lista resultados, historias read-only</td>
+        </tr>
+        <tr>
+            <td>Sistema de pagos manual + Renovación anual</td>
+            <td>20h</td>
+            <td>7%</td>
+            <td>Registro comprobante, verificación admin, ventana 10 días</td>
+        </tr>
+        <tr>
+            <td>Testing + QA</td>
+            <td>20h</td>
+            <td>7%</td>
+            <td>Tests críticos (auth, permisos, suscripción, transferencia)</td>
+        </tr>
+        <tr>
+            <td>Deploy + Documentación</td>
+            <td>10h</td>
+            <td>3%</td>
+            <td>CI/CD básico, README técnico</td>
+        </tr>
+        <tr style="background: #eff6ff; font-weight: bold;">
+            <td>TOTAL</td>
+            <td>300h</td>
+            <td>100%</td>
+            <td>3,000€</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>3. Cronograma Detallado (7.5 Semanas)</h2>
+
+<h3>Semana 1: Fundamentos + Auth (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Setup PostgreSQL, auth JWT/Passport, guards NestJS</td>
+            <td>8h</td>
+            <td>DB lista, auth base funcional</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Generar entidades TypeORM, migraciones, seed data (estados, ciudades, colegios, especies)</td>
+            <td>8h</td>
+            <td>24 tablas creadas</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Backend: Sistema de verificación por email (código OTP, expiración, reenvío)</td>
+            <td>8h</td>
+            <td>Verificación email funcional</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Frontend: Login por correo, registro fase 1 (cuenta básica), verificación email</td>
+            <td>8h</td>
+            <td>Auth frontend completo</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Componentes shared: location-picker, image-upload, dynamic-form, copy-to-clipboard</td>
+            <td>8h</td>
+            <td>UI kit base</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Semana 2: Veterinarios + Suscripción + Pacientes (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>6</td>
+            <td>Backend: Registro veterinario fase 2 (perfil completo), verificación manual colegiatura</td>
+            <td>8h</td>
+            <td>API registro vet 2 fases</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Backend: Sistema de suscripción (prueba 30 días, activación post-verificación, fechas)</td>
+            <td>8h</td>
+            <td>Suscripción base API</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Backend: Horarios (7 días, múltiples franjas), toggle 24h, servicios, especies</td>
+            <td>8h</td>
+            <td>Configuración vet API</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Frontend: Registro vet fase 2, configuración horarios UI, toggle 24h, selección múltiple</td>
+            <td>8h</td>
+            <td>Perfil vet configurable</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>Backend: CRUD tutores/mascotas, generación código único mascota, búsqueda por código</td>
+            <td>8h</td>
+            <td>Gestión pacientes + códigos API</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h3>Semana 3: Pacientes + Historias Médicas - Fase 1 (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>11</td>
+            <td>Frontend: Lista pacientes (vet), búsqueda por nombre/tutor/código, registro por código</td>
+            <td>8h</td>
+            <td>UI pacientes vet funcional</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>Backend: Vinculación mascota por código, datos clínicos editables por cualquier vet, sincronización</td>
+            <td>8h</td>
+            <td>Vinculación + sincronización API</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>Backend: Historias médicas, permisos (solo creador edita), snapshot datos tutor/mascota</td>
+            <td>8h</td>
+            <td>Estructura historias + permisos</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>Frontend: Lista historias, botón nueva, selección secciones dinámica (8 secciones)</td>
+            <td>8h</td>
+            <td>UI historias base</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>Secciones 1-4: Anamnesis, Desparasitación, Vacunación, Constantes fisiológicas</td>
+            <td>8h</td>
+            <td>Formularios específicos 1-4</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Semana 4: Historias Médicas - Fase 2 + PDF + Transferencia (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>16</td>
+            <td>Secciones 5-8: Examen físico, Exámenes complementarios (upload imágenes), Diagnóstico, Tratamiento</td>
+            <td>8h</td>
+            <td>Formularios específicos 5-8</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td>Backend: PDF generation (Puppeteer), layout médico profesional, header dinámico (tutor, mascota, vet)</td>
+            <td>8h</td>
+            <td>Export PDF funcional</td>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td>Frontend: Vista previa PDF, descarga historia, firma y sello en pie de página</td>
+            <td>8h</td>
+            <td>UI impresión completa</td>
+        </tr>
+        <tr>
+            <td>19</td>
+            <td>Backend: Transferencia de tutoría (solicitud, email verificación, aceptación/rechazo, migración datos)</td>
+            <td>8h</td>
+            <td>Flujo transferencia tutoría listo</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td>Frontend: Modal transferencia tutoría, notificaciones email, actualización perfil mascota</td>
+            <td>8h</td>
+            <td>UX transferencia completa</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Semana 5: Agenda Dual + Calendarios + Notificaciones (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>21</td>
+            <td>Backend: Citas (CRUD), validación horarios, conflictos, timezone, asociación paciente</td>
+            <td>8h</td>
+            <td>API agenda robusta</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td>Frontend: Calendario veterinario (vista mensual/día), stickers días con consultas, filtros básicos</td>
+            <td>8h</td>
+            <td>UI calendario vet profesional</td>
+        </tr>
+        <tr>
+            <td>23</td>
+            <td>Backend: Notificaciones consulta (7 días + 24h antes, push + email para vet y tutor)</td>
+            <td>8h</td>
+            <td>Sistema notificaciones consulta</td>
+        </tr>
+        <tr>
+            <td>24</td>
+            <td>Frontend: Calendario tutor (vista mensual/día), consultas agendadas, acceso a perfil vet</td>
+            <td>8h</td>
+            <td>UI calendario tutor funcional</td>
+        </tr>
+        <tr>
+            <td>25</td>
+            <td>Backend: Recordatorios tratamiento (diarios, push/email al tutor, fechas inicio/término)</td>
+            <td>8h</td>
+            <td>Recordatorios tratamiento automáticos</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Semana 6: Módulo Tutor + Búsqueda + Pagos (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>26</td>
+            <td>Backend: Búsqueda vets (filtros: ubicación, especialización, especie, nombre), lista resultados</td>
+            <td>8h</td>
+            <td>API búsqueda avanzada</td>
+        </tr>
+        <tr>
+            <td>27</td>
+            <td>Frontend: Buscador tutor, tarjetas veterinario, filtros laterales, perfil vet público</td>
+            <td>8h</td>
+            <td>Buscador tutor funcional</td>
+        </tr>
+        <tr>
+            <td>28</td>
+            <td>Backend: Perfil vet público (solo teléfono visible), datos clínicos mascota (solo lectura)</td>
+            <td>8h</td>
+            <td>API perfil público + seguridad</td>
+        </tr>
+        <tr>
+            <td>29</td>
+            <td>Backend: Sistema de pagos manual (formulario comprobante, upload imagen, verificación admin, estados)</td>
+            <td>8h</td>
+            <td>API pagos manual funcional</td>
+        </tr>
+        <tr>
+            <td>30</td>
+            <td>Frontend: Pantalla pagos vet, registro comprobante, estado suscripción, renovación anual</td>
+            <td>8h</td>
+            <td>UX pagos + suscripción completa</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h3>Semana 7: Suscripción + Suspensión + Testing (40h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>31</td>
+            <td>Backend: Suspensión granular (middleware permisos por estado: bloquear nuevas historias/pacientes, permitir lectura)</td>
+            <td>8h</td>
+            <td>Sistema suspensión robusto</td>
+        </tr>
+        <tr>
+            <td>32</td>
+            <td>Frontend: Pantalla perfil vet (estado suscripción, fechas, renovación), notificaciones vencimiento</td>
+            <td>8h</td>
+            <td>UI suscripción completa</td>
+        </tr>
+        <tr>
+            <td>33</td>
+            <td>Testing flujo veterinario: Registro → Verificación → Suscripción → Historia → PDF → Agenda</td>
+            <td>8h</td>
+            <td>Flujo vet validado</td>
+        </tr>
+        <tr>
+            <td>34</td>
+            <td>Testing flujo tutor: Registro → Mascota → Código → Búsqueda vet → Historia → Calendario</td>
+            <td>8h</td>
+            <td>Flujo tutor validado</td>
+        </tr>
+        <tr>
+            <td>35</td>
+            <td>Testing permisos + transferencia: Solo creador edita, tutor no edita, transferencia tutoría, datos clínicos sync</td>
+            <td>8h</td>
+            <td>Seguridad + integridad validada</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Semana 7.5: Deploy + Cierre (20h)</h3>
+<table class="week-table">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Tarea</th>
+            <th>Horas</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>36</td>
+            <td>Deploy: Backend (Railway), DB (Railway PostgreSQL), Frontend (Vercel), SSL</td>
+            <td>8h</td>
+            <td>Producción live</td>
+        </tr>
+        <tr>
+            <td>37</td>
+            <td>Documentación: README técnico, guía despliegue, manual usuario, FAQ, políticas</td>
+            <td>8h</td>
+            <td>Documentación entregable</td>
+        </tr>
+        <tr>
+            <td>37.5</td>
+            <td>Buffer: Bugs críticos última hora, ajustes finales, pantallas estáticas (redes sociales, acerca de)</td>
+            <td>4h</td>
+            <td>Entrega final</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>4. Esquema de Base de Datos (24 Tablas)</h2>
+
+<h3>Tablas Principales</h3>
+<ol>
+    <li><strong>states</strong> - Estados de Venezuela (23 registros)</li>
+    <li><strong>cities</strong> - Ciudades por estado</li>
+    <li><strong>municipalities</strong> - Municipios por ciudad</li>
+    <li><strong>colleges</strong> - Colegios veterinarios</li>
+    <li><strong>species</strong> - Especies atendidas (13 tipos)</li>
+    <li><strong>users</strong> - Usuarios base (veterinarios y tutores)</li>
+    <li><strong>email_verifications</strong> - Códigos OTP de verificación email (expiración, reenvío)</li>
+    <li><strong>veterinarians</strong> - Extensión vets (verificación colegiatura, ubicación, horarios 24h)</li>
+    <li><strong>vet_schedules</strong> - Horarios de atención (7 días, múltiples franjas)</li>
+    <li><strong>specializations</strong> - Especializaciones (13 tipos)</li>
+    <li><strong>vet_specializations</strong> - Relación N:M veterinario-especializaciones</li>
+    <li><strong>vet_species</strong> - Relación N:M veterinario-especies</li>
+    <li><strong>subscriptions</strong> - Suscripciones (prueba 30 días, anual, estados: active/suspended/expired)</li>
+    <li><strong>payments</strong> - Pagos manuales (comprobante, referencia, imagen, estado verificación)</li>
+    <li><strong>owners</strong> - Extensión tutores (ubicación completa)</li>
+    <li><strong>pets</strong> - Mascotas (código único, datos generales + clínicos)</li>
+    <li><strong>pet_clinical_data</strong> - Datos clínicos (raza, color, peso, alimentación, estado reproductivo, vivienda) — editables por cualquier vet</li>
+    <li><strong>ownership_transfers</strong> - Transferencias de tutoría (solicitud, email verificación, estado)</li>
+    <li><strong>medical_histories</strong> - Historias médicas (snapshot datos tutor/mascota, permisos)</li>
+    <li><strong>history_sections</strong> - Secciones de historia (8 tipos, contenido JSONB)</li>
+    <li><strong>appointments</strong> - Citas/Consultas agendadas</li>
+    <li><strong>reminders</strong> - Recordatorios tratamiento (fechas, estado)</li>
+    <li><strong>notifications</strong> - Notificaciones push/email tracking</li>
+</ol>
+
+<div class="page-break"></div>
+
+<h2>5. Vistas/Pantallas del Sistema (18 totales)</h2>
+
+<h3>Módulo Veterinario (11 pantallas)</h3>
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Pantalla</th>
+            <th>Funcionalidad Clave</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>1</td><td>Login</td><td>Correo + contraseña</td></tr>
+        <tr><td>2</td><td>Registro Vet - Fase 1</td><td>Nombre, correo, contraseña, verificación email</td></tr>
+        <tr><td>3</td><td>Registro Vet - Fase 2</td><td>Foto, cédula, colegio, número colegio, teléfono, ubicación, especializaciones, especies, horarios, toggle 24h</td></tr>
+        <tr><td>4</td><td>Dashboard Vet</td><td>Resumen día, citas hoy, estado suscripción</td></tr>
+        <tr><td>5</td><td>Lista Pacientes</td><td>Buscador (nombre, tutor, código), registro por código</td></tr>
+        <tr><td>6</td><td>Perfil Paciente</td><td>Datos tutor + mascota + historial + datos clínicos editables</td></tr>
+        <tr><td>7</td><td>Nueva/Editar Historia</td><td>Selector secciones (8), formularios dinámicos, guardado incremental</td></tr>
+        <tr><td>8</td><td>Vista Historia</td><td>Modo lectura/edición (solo propia), descarga PDF, firma/sello</td></tr>
+        <tr><td>9</td><td>Agenda Calendario</td><td>Vista mensual/día, stickers, filtros año/mes</td></tr>
+        <tr><td>10</td><td>Perfil Veterinario</td><td>Datos registro, estado suscripción, renovación, pagos</td></tr>
+        <tr><td>11</td><td>Configuración</td><td>Atención al cliente, políticas, términos, FAQ, redes sociales, cerrar sesión</td></tr>
+    </tbody>
+</table>
+
+<h3>Módulo Tutor (7 pantallas)</h3>
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Pantalla</th>
+            <th>Funcionalidad Clave</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>1</td><td>Login Tutor</td><td>Correo + contraseña</td></tr>
+        <tr><td>2</td><td>Registro Tutor - Fase 1</td><td>Nombre, correo, contraseña, verificación email</td></tr>
+        <tr><td>3</td><td>Registro Tutor - Fase 2</td><td>Cédula, teléfono, ubicación completa</td></tr>
+        <tr><td>4</td><td>Mis Mascotas</td><td>Lista con fotos, código, copiar al portapapeles, transferir tutoría</td></tr>
+        <tr><td>5</td><td>Perfil Mascota</td><td>Datos generales (solo tutor edita), datos clínicos (solo lectura), historias, perfil vet</td></tr>
+        <tr><td>6</td><td>Buscador Veterinarios</td><td>Filtros (ubicación, especialización, especie, nombre), tarjetas resultado</td></tr>
+        <tr><td>7</td><td>Calendario Tutor</td><td>Vista mensual/día, consultas agendadas, acceso perfil vet</td></tr>
+    </tbody>
+</table>
+
+<h2>6. Checklist de Entrega (100% Requisitos Actualizados)</h2>
+
+<ul class="checklist">
+    <li>Registro dual: veterinario vs tutor (2 fases cada uno)</li>
+    <li>Verificación por código de email antes de activar cuenta</li>
+    <li>Verificación manual de colegiatura (bloqueo hasta aprobación)</li>
+    <li>23 colegios de Venezuela en catálogo</li>
+    <li>Ubicación: Estado → Ciudad → Municipio (cascada dinámica)</li>
+    <li>13 especializaciones médicas</li>
+    <li>13 especies animales soportadas</li>
+    <li>Horarios configurables por día (múltiples franjas)</li>
+    <li>Toggle 24 horas disponible</li>
+    <li>Buscador pacientes (vet): nombre, tutor, código de mascota</li>
+    <li>Registro paciente por código único de mascota (sin reingresar datos)</li>
+    <li>Datos clínicos editables por cualquier veterinario vinculado</li>
+    <li>Registro mascota (tutor): foto, nombre, especie, sexo, fecha nacimiento</li>
+    <li>Código único y permanente por mascota (generación automática, copiable)</li>
+    <li>Transferencia de tutoría (email verificación, migración datos, actualización vets)</li>
+    <li>Historia médica: fecha inmutable, snapshot datos tutor/mascota</li>
+    <li>Permisos: solo creador edita, otros solo visualizan y descargan</li>
+    <li>8 secciones de historia médica completas</li>
+    <li>Exámenes complementarios con upload de imágenes (archivo o cámara)</li>
+    <li>PDF: header dinámico (datos tutor, paciente, vet), firma y sello</li>
+    <li>Tutor: ver historias, no editar, no eliminar, sí descargar historias de otros vets</li>
+    <li>Recordatorios consulta: notificaciones 7 días + 24h antes (push + email)</li>
+    <li>Recordatorios tratamiento: diarios al tutor (push/email), fechas inicio/término</li>
+    <li>Agenda calendario dual: vet y tutor (vista mensual/día, stickers)</li>
+    <li>Buscador tutor: filtros (ubicación, especialización, especie, nombre)</li>
+    <li>Perfil vet público: solo teléfono visible (no email)</li>
+    <li>Suscripción veterinario: prueba 30 días gratis post-verificación</li>
+    <li>Pago manual: registro comprobante (PayPal, Zinli, Binance, tarjeta)</li>
+    <li>Renovación anual: ventana 10 días previos, recordatorio, suspensión si no paga</li>
+    <li>Suspensión granular: bloquea nuevas historias/pacientes/buscador, permite lectura historias propias</li>
+    <li>Calendario tutor: consultas agendadas, acceso a perfil vet</li>
+    <li>Una mascota = un tutor (por cédula), transferible con verificación</li>
+    <li>Veterinario puede ser "tutor" de sus propias mascotas</li>
+    <li>Configuración: atención al cliente, políticas, términos, FAQ, redes sociales</li>
+</ul>
+
+<div class="page-break"></div>
+
+<h2>7. Stack Tecnológico</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Capa</th>
+            <th>Tecnología</th>
+            <th>Justificación Velocidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Frontend Móvil</td>
+            <td>Ionic 7 + Angular 17</td>
+            <td>Componentes UI listos, build iOS/Android simultáneo</td>
+        </tr>
+        <tr>
+            <td>Backend API</td>
+            <td>NestJS 10 + TypeORM</td>
+            <td>Generadores automáticos, arquitectura modular</td>
+        </tr>
+        <tr>
+            <td>Base de Datos</td>
+            <td>PostgreSQL 15</td>
+            <td>TypeORM migraciones, backups programados, índices optimizados</td>
+        </tr>
+        <tr>
+            <td>Autenticación</td>
+            <td>Passport + JWT (NestJS)</td>
+            <td>Control total, refresh tokens, roles granulares</td>
+        </tr>
+        <tr>
+            <td>Verificación Email</td>
+            <td>SendGrid / Resend + OTP</td>
+            <td>Envío código verificación, templates pre-diseñados</td>
+        </tr>
+        <tr>
+            <td>Almacenamiento</td>
+            <td>AWS S3 / MinIO</td>
+            <td>Imágenes optimizadas, presigned URLs, compatible local/cloud</td>
+        </tr>
+        <tr>
+            <td>Notificaciones Push</td>
+            <td>Firebase Cloud Messaging</td>
+            <td>SDK Ionic integrado</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>SendGrid / Resend</td>
+            <td>Templates pre-diseñados, API simple</td>
+        </tr>
+        <tr>
+            <td>PDF Generation</td>
+            <td>Puppeteer + PDFMake</td>
+            <td>HTML→PDF con CSS complejo, headers dinámicos, firma/sello</td>
+        </tr>
+        <tr>
+            <td>Deploy</td>
+            <td>Railway (backend + DB) + Vercel (frontend)</td>
+            <td>CI/CD automático, escalamiento simple</td>
+        </tr>
+</tbody>
+</table>
+
+<h2>8. Condiciones de Pago</h2>
+
+<div class="payment-box">
+    <h3 style="margin-top: 0; color: #92400e;">💰 Forma de Pago</h3>
+    <p style="margin-bottom: 10px;">El presupuesto total de <strong>3,000€</strong> se distribuye de la siguiente manera:</p>
+    <div class="payment-grid">
+        <div class="payment-item">
+            <strong>Anticipo para iniciar</strong>
+            <span>1,500€ (50%)</span>
+        </div>
+        <div class="payment-item">
+            <strong>Resto en pagos semanales</strong>
+            <span>~214€/semana</span>
+        </div>
+    </div>
+    <p style="margin-top: 15px; margin-bottom: 0; font-size: 12px;">
+        <strong>Detalle:</strong> Se requiere el 50% del monto total (1,500€) para dar inicio al desarrollo. El 50% restante (1,500€) se distribuye en <strong>7 pagos semanales</strong> de aproximadamente 214€ cada uno, alineados con el avance del cronograma.
+    </p>
+</div>
+
+<h2>9. Alcance de Plataforma</h2>
+
+<div class="architecture-box">
+    <div class="architecture-item">
+        <strong>📱 Desarrollo Web (incluido en este presupuesto)</strong>
+        Aplicación web progresiva (PWA) accesible desde cualquier navegador en móvil y escritorio. Funciona en Android e iOS sin necesidad de tiendas.
+    </div>
+    <div class="architecture-item" style="border-left-color: #f59e0b;">
+        <strong>🛒 Despliegue Nativo en Tiendas (no incluido)</strong>
+        Compilación, configuración y publicación en Google Play (Android) y/o App Store (iOS). Costo adicional: <strong>1,500€ por plataforma</strong>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Plataforma</th>
+            <th>Incluido</th>
+            <th>Costo Adicional</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Web / PWA (navegador)</td>
+            <td>✅ Sí</td>
+            <td>—</td>
+        </tr>
+        <tr>
+            <td>Android (Google Play)</td>
+            <td>❌ No</td>
+            <td>1,500€</td>
+        </tr>
+        <tr>
+            <td>iOS (App Store)</td>
+            <td>❌ No</td>
+            <td>1,500€</td>
+        </tr>
+        <tr style="background: #eff6ff; font-weight: bold;">
+            <td>Ambas plataformas nativas</td>
+            <td>❌ No</td>
+            <td>3,000€</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>10. Entregables Finales</h2>
+
+<ol>
+    <li><strong>Código fuente completo</strong> - Repositorio GitHub privado con historial de commits</li>
+    <li><strong>Aplicación web (PWA)</strong> - Accesible desde navegador en cualquier dispositivo</li>
+    <li><strong>API REST desplegada</strong> - Documentación Swagger/OpenAPI</li>
+    <li><strong>Base de datos</strong> - Esquema completo, migraciones, seed data</li>
+    <li><strong>Manual de usuario</strong> - Guía de uso básico (PDF)</li>
+    <li><strong>Documentación técnica</strong> - Arquitectura, decisiones, deploy</li>
+    <li><strong>Video demo</strong> - 5 minutos mostrando flujos principales</li>
+    <li><strong>1 mes de soporte</strong> - Bugs críticos post-lanzamiento</li>
+</ol>
+
+<div class="summary-box" style="margin-top: 40px; text-align: center;">
+    <h2 style="margin-top: 0; border: none;">3,000€ | 300h | 7.5 semanas | 100% Alcance Actualizado</h2>
+    <p style="font-size: 16px; margin-bottom: 0;">
+        <strong>VETPRIN APP</strong> - Plataforma veterinaria con suscripción<br>
+        Ionic-Angular • NestJS • PostgreSQL • S3 • Sistema de Suscripción
+    </p>
+</div>
+
+<div class="footer">
+    <p>Plan de desarrollo actualizado el 11 de junio de 2026</p>
+    <p>Este documento es confidencial y específico para el proyecto VETPRIN APP</p>
+</div>
+
+</body>
+</html>
