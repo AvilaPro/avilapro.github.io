@@ -1,0 +1,78 @@
+{
+      "nombre": "Punto de Venta y Facturación",
+      "etiqueta": "-20% primer año",
+      "precio": "$25/mes · $240/año",
+      "descripcion": "Venda rápido, controle su inventario y cierre caja sin errores.",
+      "caracteristicas": [
+        "Facturación en Bs y divisas",
+        "Control de inventario y alertas de stock",
+        "Cierre de caja diario",
+        "Promoción: 20% de descuento el primer año"
+      ],
+      "enlace": { "texto": "Solicitar demo", "url": "https://wa.me/584245142978?text=Hola%20Avilapro%2C%20me%20interesa%20el%20Punto%20de%20Venta" }
+    },
+    {
+      "nombre": "Nómina y Recursos Humanos",
+      "etiqueta": "1 mes gratis",
+      "precio": "$30/mes · $300/año",
+      "descripcion": "Cálculo de nómina, prestaciones, vacaciones y recibos de pago.",
+      "caracteristicas": [
+        "Recibos de pago por correo",
+        "Cálculo de prestaciones sociales y utilidades",
+        "Reportes para IVSS, FAOV e INCES",
+        "Promoción: primer mes gratis"
+      ],
+      "enlace": { "texto": "Probar gratis", "url": "https://wa.me/584245142978?text=Hola%20Avilapro%2C%20quiero%20probar%20el%20sistema%20de%20N%C3%B3mina" }
+    },
+    {
+      "nombre": "Inventario y Almacén",
+      "etiqueta": "2x1 en usuarios",
+      "precio": "$20/mes · $200/año",
+      "descripcion": "Entradas, salidas, traslados entre almacenes y valorización del inventario.",
+      "caracteristicas": [
+        "Múltiples almacenes",
+        "Kardex y costo promedio",
+        "Códigos de barra",
+        "Promoción: pague 1 usuario y obtenga 2"
+      ],
+      "enlace": { "texto": "Más información", "url": "https://wa.me/584245142978?text=Hola%20Avilapro%2C%20me%20interesa%20el%20sistema%20de%20Inventario" }
+    },
+    {
+      "nombre": "Página web para su negocio",
+      "etiqueta": "Dominio gratis",
+      "precio": "$15/mes · $150/año",
+      "descripcion": "Sitio profesional, rápido, adaptado a celulares y optimizado para Google.",
+      "caracteristicas": [
+        "Diseño a la medida de su marca",
+        "Botón de WhatsApp y formulario de contacto",
+        "Hosting y certificado SSL incluidos",
+        "Promoción: dominio .com gratis el primer año en plan anual"
+      ],
+      "enlace": { "texto": "Quiero mi web", "url": "https://wa.me/584245142978?text=Hola%20Avilapro%2C%20quiero%20una%20p%C3%A1gina%20web%20para%20mi%20negocio" }
+    },
+    {
+      "nombre": "Catálogo y tienda online",
+      "etiqueta": "-30% en octubre",
+      "precio": "$20/mes · $200/año",
+      "descripcion": "Muestre sus productos en línea y reciba pedidos directo a su WhatsApp.",
+      "caracteristicas": [
+        "Catálogo con fotos, precios y categorías",
+        "Pedidos directo a WhatsApp",
+        "Precios en Bs y divisas",
+        "Promoción: 30% de descuento si contrata en octubre"
+      ],
+      "enlace": { "texto": "Ver ejemplo", "url": "https://avilapro.dev" }
+    },
+    {
+      "nombre": "Desarrollo a la medida",
+      "etiqueta": "Asesoría gratis",
+      "precio": "Soporte desde $40/mes · $400/año",
+      "descripcion": "¿Necesita un sistema que no existe? Lo diseñamos para su proceso.",
+      "caracteristicas": [
+        "Análisis de su proceso sin compromiso",
+        "Integración con sus sistemas actuales",
+        "Plan de soporte y mantenimiento",
+        "Promoción: primera sesión de asesoría gratis"
+      ],
+      "enlace": { "texto": "Agendar asesoría", "url": "https://wa.me/584245142978?text=Hola%20Avilapro%2C%20quiero%20agendar%20una%20asesor%C3%ADa%20gratis" }
+    }
