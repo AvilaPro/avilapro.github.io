@@ -1,9 +1,24 @@
 {
   "activo": true,
   "titulo": "🚀 Soluciones Avilapro para su empresa",
-  "html": "<p>Además de <b>SICOOP</b>, desarrollamos herramientas para que su negocio trabaje menos en papeles y más en crecer. <b>Promociones válidas durante octubre 2026.</b></p>",
-  "texto": "Además de SICOOP, desarrollamos herramientas para que su negocio trabaje menos en papeles y más en crecer. Promociones válidas durante octubre 2026.",
+  "html": "<p>Además de <b>SICOOP</b>, desarrollamos herramientas para que su negocio trabaje menos en papeles y más en crecer. <b>Nuevo: FAINAN ERP</b>, listo para la nueva normativa de facturación del SENIAT.</p>",
+  "texto": "Además de SICOOP, desarrollamos herramientas para que su negocio trabaje menos en papeles y más en crecer. Nuevo: FAINAN ERP, listo para la nueva normativa de facturación del SENIAT.",
   "productos": [
+    {
+      "nombre": "FAINAN ERP - Tu empresa, bajo control",
+      "etiqueta": "🆕 Clientes Fundadores",
+      "imagen": "https://avilapro.dev/sicoop/img/fainan.jpg",
+      "descripcion": "Ventas, inventario, compras, contabilidad, nómina y cumplimiento SENIAT en una sola plataforma en la nube, pensada para Venezuela. Úselo desde la computadora, la tablet o el teléfono.",
+      "caracteristicas": [
+        "Caja / Punto de Venta: cobro en Bs y divisas con tasa BCV e IGTF, código de barras y cierre con arqueo",
+        "Inventario en tiempo real con lotes, vencimientos y alertas de reposición",
+        "Control de fiaos y de ventas con Cashea, Krece y similares",
+        "Contabilidad automática, libros Diario, Mayor e Inventario, Libros de IVA y parafiscales",
+        "En adecuación a la Providencia SNAT/2026/00093 (vigente desde el 19-04-2027)",
+        "Promoción: suscríbase antes del 31-12-2026 y reciba la actualización a la Providencia 00093 sin costo, acompañamiento en la migración y precio congelado el primer año"
+      ],
+      "enlace": { "texto": "Agendar demo gratis", "url": "https://wa.me/584245142978?text=Hola%20Avilapro%2C%20quiero%20una%20demo%20de%20FAINAN%20ERP%20(Clientes%20Fundadores)" }
+    },
     {
       "nombre": "SICOOP - Sistema Contable",
       "etiqueta": "🔥 Instalación GRATIS",
@@ -20,5 +35,5 @@
     }
   ],
   "boton": { "texto": "💬 Hablemos por WhatsApp", "url": "https://wa.me/584245142978?text=Hola%20Avilapro%2C%20vi%20sus%20promociones%20en%20un%20comprobante%20de%20retenci%C3%B3n" },
-  "pie": "Precios en dólares, referenciales. Promociones válidas hasta el 31/10/2026. Recibe este mensaje porque su empresa recibió un comprobante emitido con SICOOP."
+  "pie": "Precios en dólares, referenciales. Promoción Clientes Fundadores FAINAN válida hasta el 31/12/2026. Recibe este mensaje porque su empresa recibió un comprobante emitido con SICOOP."
 }
